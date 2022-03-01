@@ -1,6 +1,6 @@
-# tezcatlipoca
+# Tezcatlipoca
 
-This template should help get you started developing with Vue 3 in Vite.
+Tezcatlipoca is a open source UI for small businesses management, developed with [Vue.js](https://vuejs.org).
 
 ## Recommended IDE Setup
 

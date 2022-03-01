@@ -7,6 +7,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# System
 node_modules
 .DS_Store
 dist
@@ -26,3 +27,6 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+# Package control
+package-lock.json
