@@ -1,16 +1,32 @@
 <script setup>
 import { ref } from 'vue';
+import { Odometer, Setting, SwitchButton } from '@element-plus/icons-vue';
+import { useAuthStore } from '@/stores/authentication';
+import router from '@/router';
+
+const authStore = useAuthStore();
 
 const activeIndex = ref('dashboard');
 
 const handleSelect = (key, keyPath) => {
-  console.log(key, keyPath);
+  if (key === 'logout') {
+    authStore.logout();
+    router.push({ path: '/' });
+    return;
+  }
+
+  router.push({ path: `/${keyPath.join('/')}` });
 }
 </script>
 
 <template>
   <el-menu :default-active="activeIndex" mode="horizontal" @select="handleSelect">
-    <el-menu-item index="dashboard">Dashboard</el-menu-item>
+    <el-menu-item index="dashboard">
+      <el-icon>
+        <Odometer />
+      </el-icon>
+      <span>Dashboard</span>
+    </el-menu-item>
 
     <el-sub-menu index="1">
       <template #title>Item 1</template>
@@ -25,5 +41,26 @@ const handleSelect = (key, keyPath) => {
       <el-menu-item index="2-2">Item 2-B</el-menu-item>
       <el-menu-item index="2-3">Item 2-C</el-menu-item>
     </el-sub-menu>
+
+    <el-menu-item index="dashboard/settings" class="dock-right">
+      <el-icon>
+        <Setting />
+      </el-icon>
+      <span>Settings</span>
+    </el-menu-item>
+
+    <el-menu-item index="logout">
+      <el-icon>
+        <SwitchButton />
+      </el-icon>
+      <span>Logout</span>
+    </el-menu-item>
   </el-menu>
 </template>
+
+
+<style scoped>
+.el-menu--horizontal > .el-menu-item.dock-right {
+  margin-left: auto;
+}
+</style>

@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { useAuthStore } from '@/stores/authentication';
 import LoginForm from '@/components/LoginForm.vue';
 import RegistrationForm from '@/components/RegistrationForm.vue';
-import { useAuthStore } from '@/stores/authentication';
 import WelcomeView from '@/views/WelcomeView.vue';
 
 const router = createRouter({
@@ -9,9 +9,8 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/welcome',
       meta: {
-        skipAuthenticated: true
+        skipAuthenticated: true,
       },
     },
     {
@@ -29,15 +28,27 @@ const router = createRouter({
           name: 'welcome.register',
           component: RegistrationForm,
         },
-      ]
+      ],
     },
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: () => import("@/views/DashboardView.vue"),
+      component: () => import("@/views/MainView.vue"),
       meta: {
         protected: true,
       },
+      children: [
+        {
+          path: '',
+          name: 'dashboard.main',
+          component: () => import("@/views/DashboardView.vue"),
+        },
+        {
+          path: 'settings',
+          name: 'dashboard.settings',
+          component: () => import("@/views/SettingsView.vue"),
+        },
+      ],
     },
   ],
 });
@@ -45,12 +56,17 @@ const router = createRouter({
 router.beforeEach((from, to, next) => {
   const store = useAuthStore();
 
-  if (true && to.matched.some(record => record.meta.skipAuthenticated)) {
-    next({ name: 'dashboard' });
+  if (store.isAuthenticated && from.matched.some(record => record.meta.skipAuthenticated)) {
+    next({ name: 'dashboard.main' });
     return;
   }
 
-  if (!store.isAuthenticated && (from.matched.some(record => record.meta.protected) || to.matched.some(record => record.meta.protected))) {
+  if (!store.isAuthenticated && from.matched.some(record => record.meta.skipAuthenticated)) {
+    next({ name: 'welcome.login' });
+    return;
+  }
+
+  if (!store.isAuthenticated && from.matched.some(record => record.meta.protected)) {
     next({ name: 'welcome.login' });
     return;
   }
