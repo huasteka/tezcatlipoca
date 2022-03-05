@@ -1,18 +1,20 @@
 <script setup>
 import { ref, reactive } from 'vue';
+import { RouterLink } from 'vue-router';
 import { Select } from '@element-plus/icons-vue';
-import router from '../router';
-import { useAuthStore } from '../stores/authentication';
-import registrationValidator from '../validators/registrationValidator';
+import NotificationService from '@/services/notify';
+import { useAuthStore } from '@/stores/authentication';
+import registrationValidator from '@/validators/registrationValidator';
+import router from '@/router';
+
+const authStore = useAuthStore();
 
 const registerFormRef = ref();
-
 const registerForm = reactive({
   name: '',
   email: '',
   password: '',
 });
-
 const rules = reactive(registrationValidator);
 
 const submitForm = (form) => {
@@ -25,18 +27,19 @@ const submitForm = (form) => {
       return false;
     }
 
-    useAuthStore()
+    authStore
       .register(form.model)
       .then(() => {
         form.resetFields();
         router.push({ path: '/dashboard' });
-      });
+      })
+      .catch(() => NotificationService.notifyError('Could not register'));
   });
 };
 </script>
 
 <template>
-  <h2>Register a new account</h2>
+  <h2 class="center-form-title">Register a new account</h2>
 
   <el-form label-width="100px" ref="registerFormRef" :model="registerForm" :rules="rules">
     <el-form-item label="Name" prop="name">
@@ -64,6 +67,9 @@ const submitForm = (form) => {
 </template>
 
 <style scoped>
+.center-form-title {
+  text-align: center;
+}
 .align-router-link-right {
   text-align: right;
 }
