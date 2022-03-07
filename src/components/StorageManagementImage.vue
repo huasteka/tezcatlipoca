@@ -1,10 +1,10 @@
 <script setup>
-import svgWelcomeImage from '@/assets/page-welcome.svg';
+import svgImage from '@/assets/management-storage.svg';
 </script>
 
 <template>
   <div class="center-svg-logo">
-    <el-image style="width: 450px; height: 350px" :src="svgWelcomeImage" />
+    <el-image style="width: 300px; height: 250px" :src="svgImage" />
   </div>
 </template>
 
