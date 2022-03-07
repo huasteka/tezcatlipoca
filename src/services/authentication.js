@@ -1,7 +1,8 @@
 import axios from 'axios';
+import config from '@/config';
 
 const connector = axios.create({
-  baseURL: 'http://localhost:1337/api',
+  baseURL: `${config.zacatzontli}/api`,
   headers: { 'Content-Type': 'application/json' },
 });
 

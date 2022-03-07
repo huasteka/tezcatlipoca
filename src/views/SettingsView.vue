@@ -3,6 +3,9 @@ import { ref } from 'vue';
 import { Avatar, Lock } from '@element-plus/icons-vue';
 import UserProfileForm from '@/components/UserProfileForm.vue';
 import UserSecurityForm from '@/components/UserSecurityForm.vue';
+import { useNavigationStore } from '@/stores/navigation';
+
+const navigationStore = useNavigationStore();
 
 const availableItems = {
   profile: 'dashboard/settings/profile',
@@ -10,8 +13,8 @@ const availableItems = {
 };
 
 const activeIndex = ref({
-  default: availableItems.profile,
-  current: availableItems.profile
+  default: navigationStore.currentSettingsPath,
+  current: navigationStore.currentSettingsPath
 });
 
 const displayProfileSetup = () => {
@@ -23,6 +26,7 @@ const displaySecuritySetup = () => {
 }
 
 const handleSelect = (key) => {
+  navigationStore.setSettingsPath(key);
   activeIndex.value.current = key;
 }
 </script>
