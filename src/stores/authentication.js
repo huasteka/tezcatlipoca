@@ -12,6 +12,8 @@ export const useAuthStore = defineStore({
   }),
 
   getters: {
+    bearerToken: (state) => state.token,
+
     isAuthenticated: (state) => state.token !== null,
 
     userProfile: (state) => state.profile || {},

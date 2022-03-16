@@ -58,7 +58,7 @@ const handleSelect = (key, keyPath) => {
       <el-menu-item index="items">Items</el-menu-item>
 
       <el-menu-item-group title="Storage Operations">
-        <el-menu-item index="history">
+        <el-menu-item index="storage-history">
           <el-icon>
             <Histogram />
           </el-icon>
@@ -96,7 +96,7 @@ const handleSelect = (key, keyPath) => {
       <el-menu-item index="payment-conditions">Payment Conditions</el-menu-item>
 
       <el-menu-item-group title="Financial Operations">
-        <el-menu-item index="history">
+        <el-menu-item index="financial-history">
           <el-icon>
             <Histogram />
           </el-icon>
@@ -139,21 +139,21 @@ const handleSelect = (key, keyPath) => {
       <el-menu-item index="merchandises">Merchandises</el-menu-item>
 
       <el-menu-item-group title="Sales Operations">
-        <el-menu-item index="history">
+        <el-menu-item index="sales-history">
           <el-icon>
             <Histogram />
           </el-icon>
           <span>History</span>
         </el-menu-item>
 
-        <el-menu-item index="deposit">
+        <el-menu-item index="purchase-order">
           <el-icon>
             <SoldOut />
           </el-icon>
           <span>Purchase Order</span>
         </el-menu-item>
 
-        <el-menu-item index="withdraw">
+        <el-menu-item index="sales-order">
           <el-icon>
             <Sell />
           </el-icon>
