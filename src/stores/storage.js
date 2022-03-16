@@ -1,9 +1,14 @@
 import { defineStore } from 'pinia';
-import { createStorageService, responseToMapReducer } from '@/services/tepoztecatl';
+import {
+  createStorageService,
+  createMeasureUnitService,
+  responseToMapReducer
+} from '@/services/tepoztecatl';
 import { useAuthStore } from './authentication';
 
 const bearerToken = useAuthStore().bearerToken;
 const storageService = createStorageService(bearerToken);
+const measureUnitService = createMeasureUnitService(bearerToken);
 
 export const useStorageStore = defineStore({
   id: 'tepoztecatl',
@@ -14,11 +19,13 @@ export const useStorageStore = defineStore({
     measureUnitList: {},
     itemList: {},
     selectedStorage: null,
+    selectedMeasureUnit: null,
   }),
 
   getters: {
     history: (state) => Object.values(state.operationHistory),
     storages: (state) => Object.values(state.storageList),
+    measureUnits: (state) => Object.values(state.measureUnitList),
   },
 
   actions: {
@@ -30,6 +37,16 @@ export const useStorageStore = defineStore({
     async fetchStorageList(pagination = null) {
       const response = await storageService.fetchStorageList(pagination);
       this.$patch((state) => state.storageList = responseToMapReducer(response.data.data));
+    },
+
+    async fetchOneStorage(storageId) {
+      if (this.storageList[storageId]) {
+        this.$patch((state) => state.selectedStorage = this.storageList[storageId]);
+        return;
+      }
+
+      const { data } = await storageService.fetchStorage(storageId);
+      this.$patch((state) => state.selectedStorage = { id: data.data.id, ...data.data.attributes });
     },
 
     async createStorage({ name, code }) {
@@ -53,14 +70,35 @@ export const useStorageStore = defineStore({
       this.$patch((state) => delete state.storageList[storageId]);
     },
 
-    async fetchOneStorage(storageId) {
-      if (this.storageList[storageId]) {
-        this.$patch((state) => state.selectedStorage = this.storageList[storageId]);
+    async fetchMeasureUnitList(pagination = null) {
+      const response = await measureUnitService.fetchMeasureUnitList(pagination);
+      this.$patch((state) => state.measureUnitList = responseToMapReducer(response.data.data));
+    },
+
+    async fetchOneMeasureUnit(measureUnitId) {
+      if (this.measureUnitList[measureUnitId]) {
+        this.$patch((state) => state.selectedMeasureUnit = this.measureUnitList[measureUnitId]);
         return;
       }
 
-      const { data } = await storageService.fetchStorage(storageId);
-      this.$patch((state) => state.selectedStorage = { id: data.data.id, ...data.data.attributes });
+      const { data } = await measureUnitService.fetchMeasureUnit(measureUnitId);
+      this.$patch((state) => state.selectedMeasureUnit = { id: data.data.id, ...data.data.attributes });
+    },
+
+    async createMeasureUnit({ name, acronym }) {
+      const { data } = await measureUnitService.createMeasureUnit({ name, acronym });
+      this.$patch((state) => state.measureUnitList[data.data.id] = data.data);
+    },
+
+    async updateMeasureUnit({ id, name, acronym }) {
+      const updatedMeasureUnit = { id, name, acronym };
+      await measureUnitService.updateMeasureUnit(updatedMeasureUnit);
+      this.$patch((state) => state.measureUnitList[id] = updatedMeasureUnit);
+    },
+
+    async deleteMeasureUnit(measureUnitId) {
+      await measureUnitService.deleteMeasureUnit(measureUnitId);
+      this.$patch((state) => delete state.measureUnitList[measureUnitId]);
     },
   },
 });

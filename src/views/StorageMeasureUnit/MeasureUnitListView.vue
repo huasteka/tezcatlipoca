@@ -9,53 +9,49 @@ import router from '@/router';
 const store = useStorageStore();
 
 const vm = reactive({ isLoading: true });
-store.fetchStorageList().then(() => {
+store.fetchMeasureUnitList().then(() => {
   vm.isLoading = false;
 });
 
-const handleNewStorage = () => {
-  router.push({ path: '/dashboard/storage-management/storages/new' });
+const handleNewMeasureUnit = () => {
+  router.push({ path: '/dashboard/storage-management/measure-units/new' });
 }
 
-const handleNewChildStorage = (event) => {
-  router.push({ path: `/dashboard/storage-management/storages/${event.id}/add` });
+const handleUpdateMeasureUnit = (event) => {
+  router.push({ path: `/dashboard/storage-management/measure-units/${event.id}/edit` })
 }
 
-const handleUpdateStorage = (event) => {
-  router.push({ path: `/dashboard/storage-management/storages/${event.id}/edit` })
-}
-
-const handleDeleteStorage = (event) => {
-  ElMessageBox.confirm('Are you sure to delete this storage?')
+const handleDeleteMeasureUnit = (event) => {
+  ElMessageBox.confirm('Are you sure to delete this measurement unit?')
     .then(() => {
-      store.deleteStorage(event.id)
-        .then(() => NotificationService.notifySuccess('Storage deleted'))
-        .catch(() => NotificationService.notifyError('Could not delete storage'));
+      store.deleteMeasureUnit(event.id)
+        .then(() => NotificationService.notifySuccess('Measurement unit deleted'))
+        .catch(() => NotificationService.notifyError('Could not delete measurement unit'));
     })
     .catch(() => null);
 }
 </script>
 
 <template>
-  <h2>List storages</h2>
+  <h2>List measurement units</h2>
 
   <el-table
     class="resize-and-center-data-table"
     row-key="id"
-    :data="store.storages"
+    :data="store.measureUnits"
     v-loading="vm.isLoading"
   >
     <el-table-column width="100" prop="id" label="#" />
-    <el-table-column prop="code" label="Code" />
     <el-table-column prop="name" label="Name" />
+    <el-table-column prop="acronym" label="Acronym" />
 
-    <el-table-column width="250">
+    <el-table-column width="180">
       <template #header>
         <el-button
           class="align-content-right"
           type="primary"
           size="small"
-          @click.prevent="handleNewStorage()"
+          @click.prevent="handleNewMeasureUnit()"
         >
           <el-icon>
             <Plus />
@@ -66,26 +62,14 @@ const handleDeleteStorage = (event) => {
 
       <template #default="scope">
         <el-button-group class="align-content-right">
-          <el-button
-            type="primary"
-            size="small"
-            v-if="scope.row.parent_id === undefined"
-            @click.prevent="handleNewChildStorage(scope.row)"
-          >
-            <el-icon>
-              <Plus />
-            </el-icon>
-            <span>Add</span>
-          </el-button>
-
-          <el-button size="small" @click.prevent="handleUpdateStorage(scope.row)">
+          <el-button size="small" @click.prevent="handleUpdateMeasureUnit(scope.row)">
             <el-icon>
               <EditPen />
             </el-icon>
             <span>Update</span>
           </el-button>
 
-          <el-button type="danger" size="small" @click.prevent="handleDeleteStorage(scope.row)">
+          <el-button type="danger" size="small" @click.prevent="handleDeleteMeasureUnit(scope.row)">
             <el-icon>
               <Delete />
             </el-icon>

@@ -37,10 +37,8 @@ const submitForm = (storageModel) => {
   <h2>Update storage</h2>
 
   <div v-loading="vm.isLoading">
-    <CreateStorageForm
-      v-if="vm.storage !== null"
-      :storage="vm.storage"
-      @submit="submitForm($event)"
-    />
+    <div v-if="vm.storage !== null">
+      <CreateStorageForm :storage="vm.storage" @submit="submitForm($event)" />
+    </div>
   </div>
 </template>

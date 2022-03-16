@@ -13,7 +13,7 @@ export default function createService(connector, headers) {
     },
 
     fetchItem(itemId) {
-      return connector.post(`/items/${itemId}`, headers);
+      return connector.get(`/items/${itemId}`, headers);
     },
 
     fetchItemList(pagination = null) {
@@ -23,7 +23,7 @@ export default function createService(connector, headers) {
         config = { ...config, params: { ...pagination } };
       }
 
-      return connector.post('/items', config);
+      return connector.get('/items', config);
     },
   };
 }

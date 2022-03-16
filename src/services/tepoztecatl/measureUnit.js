@@ -13,7 +13,7 @@ export default function createService(connector, headers) {
     },
 
     fetchMeasureUnit(measureUnitId) {
-      return connector.post(`/measure_units/${measureUnitId}`, headers);
+      return connector.get(`/measure_units/${measureUnitId}`, headers);
     },
 
     fetchMeasureUnitList(pagination = null) {
@@ -23,7 +23,7 @@ export default function createService(connector, headers) {
         config = { ...config, params: { ...pagination } };
       }
 
-      return connector.post('/measure_units', config);
+      return connector.get('/measure_units', config);
     },
   }
 }

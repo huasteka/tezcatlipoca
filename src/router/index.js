@@ -4,6 +4,7 @@ import LoginForm from '@/components/LoginForm.vue';
 import RegistrationForm from '@/components/RegistrationForm.vue';
 import WelcomeView from '@/views/WelcomeView.vue';
 import storageRoutes from './storageRoutes';
+import measureUnitRoutes from './measureUnitRoutes';
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -50,6 +51,7 @@ const router = createRouter({
           component: () => import('@/views/SettingsView.vue'),
         },
         ...storageRoutes,
+        ...measureUnitRoutes,
       ],
     },
   ],

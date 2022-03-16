@@ -54,7 +54,7 @@ const handleSelect = (key, keyPath) => {
       </template>
 
       <el-menu-item index="storages">Storages</el-menu-item>
-      <el-menu-item index="measurement-units">Measurement Units</el-menu-item>
+      <el-menu-item index="measure-units">Measurement Units</el-menu-item>
       <el-menu-item index="items">Items</el-menu-item>
 
       <el-menu-item-group title="Storage Operations">
