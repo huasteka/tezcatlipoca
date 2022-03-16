@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia';
 import {
-  createStorageService,
+  createItemService,
   createMeasureUnitService,
+  createStorageService,
   responseToMapReducer
 } from '@/services/tepoztecatl';
 import { useAuthStore } from './authentication';
@@ -9,6 +10,7 @@ import { useAuthStore } from './authentication';
 const bearerToken = useAuthStore().bearerToken;
 const storageService = createStorageService(bearerToken);
 const measureUnitService = createMeasureUnitService(bearerToken);
+const itemService = createItemService(bearerToken);
 
 export const useStorageStore = defineStore({
   id: 'tepoztecatl',
@@ -20,12 +22,14 @@ export const useStorageStore = defineStore({
     itemList: {},
     selectedStorage: null,
     selectedMeasureUnit: null,
+    selectedItem: null,
   }),
 
   getters: {
     history: (state) => Object.values(state.operationHistory),
     storages: (state) => Object.values(state.storageList),
     measureUnits: (state) => Object.values(state.measureUnitList),
+    items: (state) => Object.values(state.itemList),
   },
 
   actions: {
@@ -99,6 +103,63 @@ export const useStorageStore = defineStore({
     async deleteMeasureUnit(measureUnitId) {
       await measureUnitService.deleteMeasureUnit(measureUnitId);
       this.$patch((state) => delete state.measureUnitList[measureUnitId]);
+    },
+
+    async fetchItemList(pagination = null) {
+      const response = await itemService.fetchItemList(pagination);
+      this.$patch((state) => state.itemList = responseToMapReducer(response.data.data));
+    },
+
+    async fetchOneItem(itemId) {
+      const { data } = await itemService.fetchItem(itemId);
+      this.$patch((state) => state.selectedItem = { id: data.data.id, ...data.data.attributes });
+    },
+
+    async createItem({
+      name,
+      code,
+      input_measure_unit_id,
+      input_quantity,
+      output_measure_unit_id,
+      output_quantity
+    }) {
+      const createdItem = {
+        name,
+        code,
+        input_measure_unit_id,
+        input_quantity,
+        output_measure_unit_id,
+        output_quantity
+      };
+      const { data } = await itemService.createItem(createdItem);
+      this.$patch((state) => state.itemList[data.data.id] = data.data);
+    },
+
+    async updateItem({
+      id,
+      name,
+      code,
+      input_measure_unit_id,
+      input_quantity,
+      output_measure_unit_id,
+      output_quantity
+    }) {
+      const updatedItem = {
+        id,
+        name,
+        code,
+        input_measure_unit_id,
+        input_quantity,
+        output_measure_unit_id,
+        output_quantity
+      };
+      await itemService.updateItem(updatedItem);
+      this.$patch((state) => state.itemList[id] = updatedItem);
+    },
+
+    async deleteItem(itemId) {
+      await itemService.deleteItem(itemId);
+      this.$patch((state) => delete state.itemList[itemId]);
     },
   },
 });
