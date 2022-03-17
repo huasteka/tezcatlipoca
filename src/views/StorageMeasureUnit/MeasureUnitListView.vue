@@ -1,6 +1,6 @@
 <script setup>
 import { reactive } from 'vue';
-import { ElMessageBox } from 'element-plus'
+import { ElMessageBox } from 'element-plus';
 import { Delete, EditPen, Plus } from '@element-plus/icons-vue';
 import NotificationService from '@/services/notify';
 import { useStorageStore } from '@/stores/storage';
@@ -84,7 +84,7 @@ const handleDeleteMeasureUnit = (event) => {
 <style scoped>
 .resize-and-center-data-table {
   margin: 0 auto;
-  width: 70%;
+  width: 80%;
 }
 .align-content-right {
   float: right;

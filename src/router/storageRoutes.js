@@ -21,11 +21,6 @@ const routes = [
     component: () => import('@/views/Storage/StorageUpdateView.vue'),
     props: ({ params }) => ({ storageId: Number.parseInt(params.storageId, 10) || 0 }),
   },
-  {
-    path: 'storage-management/storage-history',
-    name: 'dashboard.storage-management.history',
-    component: () => import('@/views/StorageOperation/StorageOperationHistoryView.vue')
-  },
 ];
 
 export default routes;

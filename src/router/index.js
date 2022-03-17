@@ -6,6 +6,7 @@ import WelcomeView from '@/views/WelcomeView.vue';
 import storageRoutes from './storageRoutes';
 import measureUnitRoutes from './measureUnitRoutes';
 import itemRoutes from './itemRoutes';
+import storageOperationRoutes from './storageOperationRoutes';
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -54,6 +55,7 @@ const router = createRouter({
         ...storageRoutes,
         ...measureUnitRoutes,
         ...itemRoutes,
+        ...storageOperationRoutes,
       ],
     },
   ],

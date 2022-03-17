@@ -65,18 +65,25 @@ const handleSelect = (key, keyPath) => {
           <span>History</span>
         </el-menu-item>
 
-        <el-menu-item index="deposit">
+        <el-menu-item index="storage-deposit">
           <el-icon>
             <Right />
           </el-icon>
           <span>Deposit</span>
         </el-menu-item>
 
-        <el-menu-item index="withdraw">
+        <el-menu-item index="storage-withdraw">
           <el-icon>
             <Back />
           </el-icon>
           <span>Withdraw</span>
+        </el-menu-item>
+
+        <el-menu-item index="storage-transfer">
+          <el-icon>
+            <Switch />
+          </el-icon>
+          <span>Transfer</span>
         </el-menu-item>
       </el-menu-item-group>
     </el-sub-menu>
@@ -103,13 +110,6 @@ const handleSelect = (key, keyPath) => {
           <span>History</span>
         </el-menu-item>
 
-        <el-menu-item index="payments">
-          <el-icon>
-            <Back />
-          </el-icon>
-          <span>Payments</span>
-        </el-menu-item>
-
         <el-menu-item index="receipts">
           <el-icon>
             <Right />
@@ -117,7 +117,14 @@ const handleSelect = (key, keyPath) => {
           <span>Receipts</span>
         </el-menu-item>
 
-        <el-menu-item index="transfers">
+        <el-menu-item index="payments">
+          <el-icon>
+            <Back />
+          </el-icon>
+          <span>Payments</span>
+        </el-menu-item>
+
+        <el-menu-item index="account-transfer">
           <el-icon>
             <Switch />
           </el-icon>

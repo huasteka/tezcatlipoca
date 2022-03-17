@@ -6,11 +6,13 @@ import {
   responseToMapReducer
 } from '@/services/tepoztecatl';
 import { useAuthStore } from './authentication';
+import { createOperationService } from '../services/tepoztecatl';
 
 const bearerToken = useAuthStore().bearerToken;
 const storageService = createStorageService(bearerToken);
 const measureUnitService = createMeasureUnitService(bearerToken);
 const itemService = createItemService(bearerToken);
+const operationService = createOperationService(bearerToken);
 
 export const useStorageStore = defineStore({
   id: 'tepoztecatl',
@@ -33,8 +35,8 @@ export const useStorageStore = defineStore({
   },
 
   actions: {
-    async fetchOperationHistory(storageId, pagination = null) {
-      const response = await storageService.fetchOperationHistory(storageId, pagination);
+    async fetchOperationHistory(storageId = null, pagination = null) {
+      const response = await operationService.fetchOperationHistory(storageId, pagination);
       this.$patch((state) => state.operationHistory = responseToMapReducer(response.data.data));
     },
 

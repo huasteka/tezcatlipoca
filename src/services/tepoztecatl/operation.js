@@ -17,18 +17,18 @@ export default function createService(connector, headers) {
       return connector.post(`/operations/stocks/${stockId}/set_minimum`, payload, headers);
     },
 
-    fetchOperationHistory({ storageId }, pagination = null) {
+    fetchOperationHistory(storageId = null, pagination = null) {
       let config = { ...headers };
 
       if (storageId !== null && storageId !== '') {
-        config = { ...config, storage_id: storageId };
+        config = { ...config, params: { storage_id: storageId } };
       }
 
       if (pagination !== null) {
-        config = { ...config, params: { ...pagination } };
+        config = { ...config, params: { ...config.params, ...pagination } };
       }
 
-      return connector.get('/operations/stocks', config);
+      return connector.get('/operations/stocks/history', config);
     }
   };
 }

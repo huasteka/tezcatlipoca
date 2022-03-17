@@ -34,7 +34,7 @@ const submitForm = (itemModel) => {
 </script>
 
 <template>
-  <h2>Update measurement unit</h2>
+  <h2>Update item</h2>
 
   <div v-loading="vm.isLoading">
     <div v-if="vm.item !== null">
