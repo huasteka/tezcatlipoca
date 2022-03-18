@@ -3,6 +3,10 @@ import { useAuthStore } from '@/stores/authentication';
 import LoginForm from '@/components/LoginForm.vue';
 import RegistrationForm from '@/components/RegistrationForm.vue';
 import WelcomeView from '@/views/WelcomeView.vue';
+import storageRoutes from './storageRoutes';
+import measureUnitRoutes from './measureUnitRoutes';
+import itemRoutes from './itemRoutes';
+import storageOperationRoutes from './storageOperationRoutes';
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -33,7 +37,7 @@ const router = createRouter({
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: () => import("@/views/MainView.vue"),
+      component: () => import('@/views/MainView.vue'),
       meta: {
         protected: true,
       },
@@ -41,13 +45,17 @@ const router = createRouter({
         {
           path: '',
           name: 'dashboard.main',
-          component: () => import("@/views/DashboardView.vue"),
+          component: () => import('@/views/DashboardView.vue'),
         },
         {
           path: 'settings',
           name: 'dashboard.settings',
-          component: () => import("@/views/SettingsView.vue"),
+          component: () => import('@/views/SettingsView.vue'),
         },
+        ...storageOperationRoutes,
+        ...storageRoutes,
+        ...measureUnitRoutes,
+        ...itemRoutes,
       ],
     },
   ],

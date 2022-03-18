@@ -54,29 +54,36 @@ const handleSelect = (key, keyPath) => {
       </template>
 
       <el-menu-item index="storages">Storages</el-menu-item>
-      <el-menu-item index="measurement-units">Measurement Units</el-menu-item>
+      <el-menu-item index="measure-units">Measurement Units</el-menu-item>
       <el-menu-item index="items">Items</el-menu-item>
 
       <el-menu-item-group title="Storage Operations">
-        <el-menu-item index="history">
+        <el-menu-item index="storage-history">
           <el-icon>
             <Histogram />
           </el-icon>
           <span>History</span>
         </el-menu-item>
 
-        <el-menu-item index="deposit">
+        <el-menu-item index="storage-deposit">
           <el-icon>
             <Right />
           </el-icon>
           <span>Deposit</span>
         </el-menu-item>
 
-        <el-menu-item index="withdraw">
+        <el-menu-item index="storage-withdraw">
           <el-icon>
             <Back />
           </el-icon>
           <span>Withdraw</span>
+        </el-menu-item>
+
+        <el-menu-item index="storage-transfer">
+          <el-icon>
+            <Switch />
+          </el-icon>
+          <span>Transfer</span>
         </el-menu-item>
       </el-menu-item-group>
     </el-sub-menu>
@@ -96,18 +103,11 @@ const handleSelect = (key, keyPath) => {
       <el-menu-item index="payment-conditions">Payment Conditions</el-menu-item>
 
       <el-menu-item-group title="Financial Operations">
-        <el-menu-item index="history">
+        <el-menu-item index="financial-history">
           <el-icon>
             <Histogram />
           </el-icon>
           <span>History</span>
-        </el-menu-item>
-
-        <el-menu-item index="payments">
-          <el-icon>
-            <Back />
-          </el-icon>
-          <span>Payments</span>
         </el-menu-item>
 
         <el-menu-item index="receipts">
@@ -117,7 +117,14 @@ const handleSelect = (key, keyPath) => {
           <span>Receipts</span>
         </el-menu-item>
 
-        <el-menu-item index="transfers">
+        <el-menu-item index="payments">
+          <el-icon>
+            <Back />
+          </el-icon>
+          <span>Payments</span>
+        </el-menu-item>
+
+        <el-menu-item index="account-transfer">
           <el-icon>
             <Switch />
           </el-icon>
@@ -139,21 +146,21 @@ const handleSelect = (key, keyPath) => {
       <el-menu-item index="merchandises">Merchandises</el-menu-item>
 
       <el-menu-item-group title="Sales Operations">
-        <el-menu-item index="history">
+        <el-menu-item index="sales-history">
           <el-icon>
             <Histogram />
           </el-icon>
           <span>History</span>
         </el-menu-item>
 
-        <el-menu-item index="deposit">
+        <el-menu-item index="purchase-order">
           <el-icon>
             <SoldOut />
           </el-icon>
           <span>Purchase Order</span>
         </el-menu-item>
 
-        <el-menu-item index="withdraw">
+        <el-menu-item index="sales-order">
           <el-icon>
             <Sell />
           </el-icon>
