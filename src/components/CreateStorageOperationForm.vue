@@ -1,21 +1,25 @@
 <script setup>
 import { ref, reactive } from 'vue';
-import { Back, Select } from '@element-plus/icons-vue';
-import createStorageValidator from '@/validators/createStorageValidator';
-import router from '@/router';
+import { Select } from '@element-plus/icons-vue';
+import createStorageOperationValidator from '@/validators/createStorageOperationValidator';
+import { useStorageStore } from '@/stores/storage';
 
-const props = defineProps({
-  storage: Object,
-});
-
+const store = useStorageStore();
 const emit = defineEmits(['submit']);
 
-const { id = null, name = '', code = '', parent_id = null } = props.storage || {};
-const createStorageFormRef = ref();
-const createStorageForm = reactive({ id, name, code, parent_id });
-const rules = reactive(createStorageValidator);
+const vm = reactive({ isLoading: true, storageList: [], itemList: [] });
+Promise.all([
+  store.fetchStorageList(),
+  store.fetchItemList(),
+]).then(() => {
+  vm.isLoading = false;
+  vm.storageList = store.storages;
+  vm.itemList = store.items;
+});
 
-const navigateBack = () => router.push({ path: '/dashboard/storage-management/storages' });
+const createOperationFormRef = ref();
+const createOperationForm = reactive({ storage_id: null, item_id: null, quantity: 0 });
+const rules = reactive(createStorageOperationValidator);
 
 const submitForm = (form) => {
   if (!form) {
@@ -27,24 +31,65 @@ const submitForm = (form) => {
       return false;
     }
 
-    emit('submit', form.model);
+    emit('submit', { model: form.model, clearForm: form.resetFields });
   });
 }
 </script>
 
 <template>
-  <el-form label-width="150px" ref="createStorageFormRef" :model="createStorageForm" :rules="rules">
-    <el-form-item label="Name" prop="name">
-      <el-input v-model="createStorageForm.name"></el-input>
+  <el-form
+    label-width="150px"
+    ref="createOperationFormRef"
+    v-loading="vm.isLoading"
+    :model="createOperationForm"
+    :rules="rules"
+  >
+    <el-form-item label="Storage" prop="storage_id">
+      <el-select placeholder="Select a storage" v-model="createOperationForm.storage_id">
+        <el-option
+          v-for="storage in vm.storageList"
+          :key="storage.id"
+          :label="`${storage.name} (${storage.code})`"
+          :value="storage.id"
+        >
+          <span>{{ storage.name }}</span>
+          <el-tag class="select-option-icon-position">{{ storage.code }}</el-tag>
+        </el-option>
+      </el-select>
     </el-form-item>
 
-    <el-form-item label="Code" prop="code">
-      <el-input v-model="createStorageForm.code" style="width: 100px"></el-input>
+    <el-form-item label="Item" prop="item_id">
+      <el-select placeholder="Select an item" v-model="createOperationForm.item_id">
+        <el-option
+          v-for="item in vm.itemList"
+          :key="item.id"
+          :label="`${item.name} (${item.code})`"
+          :value="item.id"
+        >
+          <span>{{ item.name }}</span>
+          <el-tag class="select-option-icon-position">{{ item.code }}</el-tag>
+        </el-option>
+      </el-select>
+    </el-form-item>
+
+    <el-form-item label="Quantity" prop="quantity">
+      <el-input-number class="small-form-input" :min="0" v-model="createOperationForm.quantity"></el-input-number>
     </el-form-item>
 
     <el-form-item>
-      <el-button :icon="Back" @click="navigateBack()">Back</el-button>
-      <el-button type="primary" :icon="Select" @click="submitForm(createStorageFormRef)">Submit</el-button>
+      <el-button type="primary" :icon="Select" @click="submitForm(createOperationFormRef)">Submit</el-button>
     </el-form-item>
   </el-form>
 </template>
+
+<style scoped>
+.small-form-input {
+  width: 205px;
+}
+.select-option-icon-position {
+  float: right;
+}
+.el-select.el-select--default {
+  width: 450px;
+}
+</style>

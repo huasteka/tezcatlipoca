@@ -18,7 +18,7 @@ export const useStorageStore = defineStore({
   id: 'tepoztecatl',
 
   state: () => ({
-    operationHistory: {},
+    operationHistory: [],
     storageList: {},
     measureUnitList: {},
     itemList: {},
@@ -28,18 +28,13 @@ export const useStorageStore = defineStore({
   }),
 
   getters: {
-    history: (state) => Object.values(state.operationHistory),
     storages: (state) => Object.values(state.storageList),
     measureUnits: (state) => Object.values(state.measureUnitList),
     items: (state) => Object.values(state.itemList),
+    history: (state) => state.operationHistory,
   },
 
   actions: {
-    async fetchOperationHistory(storageId = null, pagination = null) {
-      const response = await operationService.fetchOperationHistory(storageId, pagination);
-      this.$patch((state) => state.operationHistory = responseToMapReducer(response.data.data));
-    },
-
     async fetchStorageList(pagination = null) {
       const response = await storageService.fetchStorageList(pagination);
       this.$patch((state) => state.storageList = responseToMapReducer(response.data.data));
@@ -162,6 +157,24 @@ export const useStorageStore = defineStore({
     async deleteItem(itemId) {
       await itemService.deleteItem(itemId);
       this.$patch((state) => delete state.itemList[itemId]);
+    },
+
+    async fetchOperationHistory(storageId = null, pagination = null) {
+      const response = await operationService.fetchOperationHistory(storageId, pagination);
+      const operationMapper = ({ id, attributes }) => ({ id, ...attributes });
+      this.$patch((state) => state.operationHistory = (response.data.data || []).map(operationMapper));
+    },
+
+    async createDepositOperation({ storage_id, item_id, quantity }) {
+      await operationService.createStockDeposit({ storage_id, item_id, quantity });
+    },
+
+    async createWithdrawOperation({ storage_id, item_id, quantity }) {
+      await operationService.createStockWithdraw({ storage_id, item_id, quantity });
+    },
+
+    async createTransferOperation({ from_storage_id, to_storage_id, item_id, quantity }) {
+      await operationService.createStockTransfer({ from_storage_id, to_storage_id, item_id, quantity });
     },
   },
 });

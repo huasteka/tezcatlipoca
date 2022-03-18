@@ -85,12 +85,12 @@ const handleStorageSelection = (storageId) => {
 
   <el-timeline v-loading="vm.isLoading">
     <el-timeline-item
-      v-for="(operation, index) in vm.history"
       size="large"
+      v-for="(operation, index) in vm.history"
       :key="index"
       :icon="getIcon(operation)"
       :type="getType(operation)"
-      :timestamp="operation.timestamp"
+      :timestamp="(new Date(operation.created_at)).toUTCString()"
     >
       <el-descriptions class="timeline-description-max-width" :title="getTitle(operation)">
         <el-descriptions-item :label="operation.stock.storage.name">
