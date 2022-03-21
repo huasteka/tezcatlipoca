@@ -100,7 +100,6 @@ const handleSelect = (key, keyPath) => {
       <el-menu-item index="budget-categories">Budget Categories</el-menu-item>
       <el-menu-item index="accounts">Accounts</el-menu-item>
       <el-menu-item index="payment-types">Payment Types</el-menu-item>
-      <el-menu-item index="payment-conditions">Payment Conditions</el-menu-item>
 
       <el-menu-item-group title="Financial Operations">
         <el-menu-item index="financial-history">

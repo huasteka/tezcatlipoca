@@ -7,7 +7,7 @@ cd dist
 git init
 git checkout -b main
 git add -A
-git commit -m 'Application deployment is ready'
+git commit -m "Application deployment is ready"
 
 git push -f git@github.com:huasteka/tezcatlipoca.git main:gh-pages
 
