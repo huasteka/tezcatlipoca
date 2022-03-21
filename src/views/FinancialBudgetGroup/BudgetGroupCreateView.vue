@@ -6,8 +6,8 @@ import router from '@/router';
 
 const store = useFinancialStore();
 
-const submitForm = (storageModel) => {
-  store.createBudgetGroup(storageModel)
+const submitForm = (budgetGroupModel) => {
+  store.createBudgetGroup(budgetGroupModel)
     .then(() => {
       NotificationService.notifySuccess('Budget group created');
       router.push({ path: '/dashboard/finance-management/budget-groups' });

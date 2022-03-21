@@ -10,9 +10,9 @@ const props = defineProps({
 
 const emit = defineEmits(['submit']);
 
-const { id = null, name = '', code = '', parent_id = null } = props.budgetGroup || {};
+const { id = null, name = '' } = props.budgetGroup || {};
 const createBudgetGroupFormRef = ref();
-const createBudgetGroupForm = reactive({ id, name, code, parent_id });
+const createBudgetGroupForm = reactive({ id, name });
 const rules = reactive(createBudgetGroupValidator);
 
 const navigateBack = () => router.push({ path: '/dashboard/finance-management/budget-groups' });

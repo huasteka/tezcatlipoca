@@ -8,6 +8,7 @@ import measureUnitRoutes from './measureUnitRoutes';
 import itemRoutes from './itemRoutes';
 import storageOperationRoutes from './storageOperationRoutes';
 import budgetGroupRoutes from './budgetGroupRoutes';
+import budgetCategoryRoutes from './budgetCategoryRoutes';
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -58,6 +59,7 @@ const router = createRouter({
         ...measureUnitRoutes,
         ...itemRoutes,
         ...budgetGroupRoutes,
+        ...budgetCategoryRoutes,
       ],
     },
   ],

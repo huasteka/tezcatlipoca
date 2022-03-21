@@ -1,23 +1,28 @@
 import { defineStore } from 'pinia';
 import {
   createBudgetGroupService,
+  createBudgetCategoryService,
   responseToMapReducer
 } from '@/services/yacatecuhtli';
 import { useAuthStore } from './authentication';
 
 const bearerToken = useAuthStore().bearerToken;
 const budgetGroupService = createBudgetGroupService(bearerToken);
+const budgetCategoryService = createBudgetCategoryService(bearerToken);
 
 export const useFinancialStore = defineStore({
   id: 'yacatecuhtli',
 
   state: () => ({
     budgetGroupList: {},
+    budgetCategoryList: {},
     selectedBudgetGroup: null,
+    selectedBudgetCategory: null,
   }),
   
   getters: {
     budgetGroups: (state) => Object.values(state.budgetGroupList),
+    budgetCategories: (state) => Object.values(state.budgetCategoryList),
   },
 
   actions: {
@@ -50,6 +55,37 @@ export const useFinancialStore = defineStore({
     async deleteBudgetGroup(budgetGroupId) {
       await budgetGroupService.deleteBudgetGroup(budgetGroupId);
       this.$patch((state) => delete state.budgetGroupList[budgetGroupId]);
+    },
+
+    async fetchBudgetCategoryList(pagination = null) {
+      const response = await budgetCategoryService.fetchBudgetCategoryList(pagination);
+      this.$patch((state) => state.budgetCategoryList = responseToMapReducer(response.data.attributes));
+    },
+
+    async fetchOneBudgetCategory(budgetCategoryId) {
+      if (this.budgetCategoryList[budgetCategoryId]) {
+        this.$patch((state) => state.selectedBudgetCategory = this.budgetCategoryList[budgetCategoryId]);
+        return;
+      }
+
+      const { data } = await budgetCategoryService.fetchBudgetCategory(budgetCategoryId);
+      this.$patch((state) => state.selectedBudgetCategory = data.attributes );
+    },
+
+    async createBudgetCategory({ name, group }) {
+      const { data } = await budgetCategoryService.createBudgetCategory({ name, group });
+      this.$patch((state) => state.budgetCategoryList[data.attributes.id] = data.attributes);
+    },
+
+    async updateBudgetCategory({ id, name, group }) {
+      const updatedBudgetCategory = { id, name, group };
+      await budgetCategoryService.updateBudgetCategory(updatedBudgetCategory);
+      this.$patch((state) => state.budgetCategoryList[id] = updatedBudgetCategory);
+    },
+
+    async deleteBudgetCategory(budgetCategoryId) {
+      await budgetCategoryService.deleteBudgetCategory(budgetCategoryId);
+      this.$patch((state) => delete state.budgetCategoryList[budgetCategoryId]);
     },
   },
 });
