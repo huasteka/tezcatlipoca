@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import {
   createBudgetGroupService,
   createBudgetCategoryService,
+  createAccountService,
   responseToMapReducer
 } from '@/services/yacatecuhtli';
 import { useAuthStore } from './authentication';
@@ -9,6 +10,7 @@ import { useAuthStore } from './authentication';
 const bearerToken = useAuthStore().bearerToken;
 const budgetGroupService = createBudgetGroupService(bearerToken);
 const budgetCategoryService = createBudgetCategoryService(bearerToken);
+const accountService = createAccountService(bearerToken);
 
 export const useFinancialStore = defineStore({
   id: 'yacatecuhtli',
@@ -16,13 +18,16 @@ export const useFinancialStore = defineStore({
   state: () => ({
     budgetGroupList: {},
     budgetCategoryList: {},
+    accountList: {},
     selectedBudgetGroup: null,
     selectedBudgetCategory: null,
+    selectedAccount: null,
   }),
-  
+
   getters: {
     budgetGroups: (state) => Object.values(state.budgetGroupList),
     budgetCategories: (state) => Object.values(state.budgetCategoryList),
+    accounts: (state) => Object.values(state.accountList),
   },
 
   actions: {
@@ -69,7 +74,7 @@ export const useFinancialStore = defineStore({
       }
 
       const { data } = await budgetCategoryService.fetchBudgetCategory(budgetCategoryId);
-      this.$patch((state) => state.selectedBudgetCategory = data.attributes );
+      this.$patch((state) => state.selectedBudgetCategory = data.attributes);
     },
 
     async createBudgetCategory({ name, group }) {
@@ -86,6 +91,37 @@ export const useFinancialStore = defineStore({
     async deleteBudgetCategory(budgetCategoryId) {
       await budgetCategoryService.deleteBudgetCategory(budgetCategoryId);
       this.$patch((state) => delete state.budgetCategoryList[budgetCategoryId]);
+    },
+
+    async fetchAccountList(pagination = null) {
+      const response = await accountService.fetchAccountList(pagination);
+      this.$patch((state) => state.accountList = responseToMapReducer(response.data.attributes));
+    },
+
+    async fetchOneAccount(accountId) {
+      if (this.accountList[accountId]) {
+        this.$patch((state) => state.selectedAccount = this.accountList[accountId]);
+        return;
+      }
+
+      const { data } = await accountService.fetchAccount(accountId);
+      this.$patch((state) => state.selectedAccount = data.attributes);
+    },
+
+    async createAccount({ name, code }) {
+      const { data } = await accountService.createAccount({ name, code });
+      this.$patch((state) => state.accountList[data.attributes.id] = data.attributes);
+    },
+
+    async updateAccount({ id, name, code }) {
+      const updatedAccount = { id, name, code };
+      await accountService.updateAccount(updatedAccount);
+      this.$patch((state) => state.accountList[id] = updatedAccount);
+    },
+
+    async deleteAccount(accountId) {
+      await accountService.deleteAccount(accountId);
+      this.$patch((state) => delete state.accountList[accountId]);
     },
   },
 });
