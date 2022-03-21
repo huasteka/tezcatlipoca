@@ -3,7 +3,8 @@ import {
   createBudgetGroupService,
   createBudgetCategoryService,
   createAccountService,
-  responseToMapReducer
+  createPaymentTypeService,
+  responseToMapReducer,
 } from '@/services/yacatecuhtli';
 import { useAuthStore } from './authentication';
 
@@ -11,6 +12,7 @@ const bearerToken = useAuthStore().bearerToken;
 const budgetGroupService = createBudgetGroupService(bearerToken);
 const budgetCategoryService = createBudgetCategoryService(bearerToken);
 const accountService = createAccountService(bearerToken);
+const paymentTypeService = createPaymentTypeService(bearerToken);
 
 export const useFinancialStore = defineStore({
   id: 'yacatecuhtli',
@@ -19,15 +21,18 @@ export const useFinancialStore = defineStore({
     budgetGroupList: {},
     budgetCategoryList: {},
     accountList: {},
+    paymentTypeList: {},
     selectedBudgetGroup: null,
     selectedBudgetCategory: null,
     selectedAccount: null,
+    selectedPaymentType: null,
   }),
 
   getters: {
     budgetGroups: (state) => Object.values(state.budgetGroupList),
     budgetCategories: (state) => Object.values(state.budgetCategoryList),
     accounts: (state) => Object.values(state.accountList),
+    paymentTypes: (state) => Object.values(state.paymentTypeList),
   },
 
   actions: {
@@ -122,6 +127,37 @@ export const useFinancialStore = defineStore({
     async deleteAccount(accountId) {
       await accountService.deleteAccount(accountId);
       this.$patch((state) => delete state.accountList[accountId]);
+    },
+
+    async fetchPaymentTypeList(pagination = null) {
+      const response = await paymentTypeService.fetchPaymentTypeList(pagination);
+      this.$patch((state) => state.paymentTypeList = responseToMapReducer(response.data.attributes));
+    },
+
+    async fetchOnePaymentType(paymentTypeId) {
+      if (this.paymentTypeList[paymentTypeId]) {
+        this.$patch((state) => state.selectedPaymentType = this.paymentTypeList[paymentTypeId]);
+        return;
+      }
+
+      const { data } = await paymentTypeService.fetchPaymentType(paymentTypeId);
+      this.$patch((state) => state.selectedPaymentType = data.attributes);
+    },
+
+    async createPaymentType({ name, terms, paymentAccount }) {
+      const { data } = await paymentTypeService.createPaymentType({ name, terms, paymentAccount });
+      this.$patch((state) => state.paymentTypeList[data.attributes.id] = data.attributes);
+    },
+
+    async updatePaymentType({ id, name, terms, paymentAccount }) {
+      const updatedPaymentType = { id, name, terms, paymentAccount };
+      await paymentTypeService.updatePaymentType(updatedPaymentType);
+      this.$patch((state) => state.paymentTypeList[id] = updatedPaymentType);
+    },
+
+    async deletePaymentType(paymentTypeId) {
+      await paymentTypeService.deletePaymentType(paymentTypeId);
+      this.$patch((state) => delete state.paymentTypeList[paymentTypeId]);
     },
   },
 });

@@ -142,6 +142,7 @@ const handleSelect = (key, keyPath) => {
 
       <el-menu-item index="clients">Clients</el-menu-item>
       <el-menu-item index="suppliers">Suppliers</el-menu-item>
+      <el-menu-item index="products">Products</el-menu-item>
       <el-menu-item index="merchandises">Merchandises</el-menu-item>
 
       <el-menu-item-group title="Sales Operations">

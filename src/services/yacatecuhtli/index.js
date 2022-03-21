@@ -4,6 +4,7 @@ import setAccountServiceAPI from './account';
 import setBudgetGroupAPI from './budgetGroup';
 import setBudgetCategoryServiceAPI from './budgetCategory';
 import setEntryServiceAPI from './entry';
+import setPaymentTypeAPI from './paymentType';
 
 const connector = axios.create({
   baseURL: `${config.yacatecuhtli}/api`,
@@ -36,6 +37,10 @@ export function createBudgetCategoryService(token) {
 
 export function createAccountService(token) {
   return setAccountServiceAPI(connector, headers(token));
+}
+
+export function createPaymentTypeService(token) {
+  return setPaymentTypeAPI(connector, headers(token));
 }
 
 export function createEntryService(token) {
