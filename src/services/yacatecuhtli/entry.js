@@ -1,15 +1,15 @@
 export default function createService(connector, headers) {
   return {
     createAccountDeposit(operation) {
-      return connector.post('/entries/deposit', { operation }, headers);
+      return connector.post('/entries/deposit', operation, headers);
     },
 
     createAccountWithdraw(operation) {
-      return connector.post('/entries/withdraw', { operation }, headers);
+      return connector.post('/entries/withdraw', operation, headers);
     },
 
     createAccountTransfer(transfer) {
-      return connector.post('/transfers', { transfer }, headers);
+      return connector.post('/transfers', transfer, headers);
     },
 
     executeEntry(entryId, executionData) {

@@ -4,6 +4,7 @@ import {
   createBudgetCategoryService,
   createAccountService,
   createPaymentTypeService,
+  createEntryService,
   responseToMapReducer,
 } from '@/services/yacatecuhtli';
 import { useAuthStore } from './authentication';
@@ -13,11 +14,13 @@ const budgetGroupService = createBudgetGroupService(bearerToken);
 const budgetCategoryService = createBudgetCategoryService(bearerToken);
 const accountService = createAccountService(bearerToken);
 const paymentTypeService = createPaymentTypeService(bearerToken);
+const entryService = createEntryService(bearerToken);
 
 export const useFinancialStore = defineStore({
   id: 'yacatecuhtli',
 
   state: () => ({
+    operationHistory: [],
     budgetGroupList: {},
     budgetCategoryList: {},
     accountList: {},
@@ -29,10 +32,22 @@ export const useFinancialStore = defineStore({
   }),
 
   getters: {
+    budgetCategoriesByGroup: (state) => Object.values(state.budgetCategoryList)
+      .reduce((result, { group, ...category }) => ({
+        ...result,
+        [group.id]: {
+          ...group,
+          categories: [
+            ...(result[group.id] ? result[group.id].categories : []),
+            { ...category },
+          ],
+        },
+      }), {}),
     budgetGroups: (state) => Object.values(state.budgetGroupList),
     budgetCategories: (state) => Object.values(state.budgetCategoryList),
     accounts: (state) => Object.values(state.accountList),
     paymentTypes: (state) => Object.values(state.paymentTypeList),
+    history: (state) => Object.values(state.operationHistory),
   },
 
   actions: {
@@ -158,6 +173,23 @@ export const useFinancialStore = defineStore({
     async deletePaymentType(paymentTypeId) {
       await paymentTypeService.deletePaymentType(paymentTypeId);
       this.$patch((state) => delete state.paymentTypeList[paymentTypeId]);
+    },
+
+    async fetchOperationHistory(accountId, pagination = null) {
+      const response = await entryService.fetchEntriesByAccount(accountId, pagination);
+      this.$patch((state) => state.operationHistory = response.data.attributes);
+    },
+
+    async createDepositOperation({ category, account, paymentType, ...values }) {
+      await entryService.createAccountDeposit({ category, account, paymentType, ...values });
+    },
+
+    async createWithdrawOperation({ category, account, paymentType, ...values }) {
+      await entryService.createAccountWithdraw({ category, account, paymentType, ...values });
+    },
+
+    async createTransferOperation({ sourceAccountId, targetAccountId, paymentTypeId, amount }) {
+      await entryService.createAccountTransfer({ sourceAccountId, targetAccountId, paymentTypeId, amount });
     },
   },
 });
