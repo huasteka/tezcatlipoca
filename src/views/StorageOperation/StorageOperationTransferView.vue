@@ -11,7 +11,7 @@ const storageStore = useStorageStore();
 const handleSubmit = ({ model, clearForm }) => {
   storageStore.createTransferOperation(model)
     .then(() => {
-      NotificationService.notifySuccess('A transfer was issued into the source and target storages');
+      NotificationService.notifySuccess('A transfer was issued between the source and target storages');
       clearForm();
     })
     .catch(({ response }) =>

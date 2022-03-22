@@ -3,10 +3,10 @@ import {
   createItemService,
   createMeasureUnitService,
   createStorageService,
+  createOperationService,
   responseToMapReducer
 } from '@/services/tepoztecatl';
 import { useAuthStore } from './authentication';
-import { createOperationService } from '../services/tepoztecatl';
 
 const bearerToken = useAuthStore().bearerToken;
 const storageService = createStorageService(bearerToken);

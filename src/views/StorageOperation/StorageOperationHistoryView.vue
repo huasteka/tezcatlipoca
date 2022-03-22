@@ -92,12 +92,14 @@ const handleStorageSelection = (storageId) => {
       :type="getType(operation)"
       :timestamp="(new Date(operation.created_at)).toUTCString()"
     >
-      <el-descriptions class="timeline-description-max-width" :title="getTitle(operation)">
-        <el-descriptions-item :label="operation.stock.storage.name">
+      <el-descriptions border class="timeline-description-max-width" :title="getTitle(operation)">
+        <el-descriptions-item label="Storage">
+          <span class="storage-description-label">{{ operation.stock.storage.name }}</span>
           <el-tag>{{ operation.stock.storage.code }}</el-tag>
         </el-descriptions-item>
 
-        <el-descriptions-item :label="operation.stock.item.name">
+        <el-descriptions-item label="Item">
+          <span class="storage-description-label">{{ operation.stock.item.name }}</span>
           <el-tag>{{ operation.stock.item.code }}</el-tag>
         </el-descriptions-item>
 
@@ -122,5 +124,9 @@ const handleStorageSelection = (storageId) => {
 
 .select-option-icon-position {
   float: right;
+}
+
+.storage-description-label {
+  padding-right: 10px;
 }
 </style>
