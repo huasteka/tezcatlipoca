@@ -13,6 +13,7 @@ import accountRoutes from './accountRoutes';
 import paymentTypeRoutes from './paymentTypeRoutes';
 import financialOperationRoutes from './financialOperationRoutes';
 import clientRoutes from './clientRoutes';
+import supplierRoutes from './supplierRoutes';
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -68,6 +69,7 @@ const router = createRouter({
         ...paymentTypeRoutes,
         ...financialOperationRoutes,
         ...clientRoutes,
+        ...supplierRoutes,
       ],
     },
   ],

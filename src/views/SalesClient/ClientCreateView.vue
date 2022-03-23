@@ -16,6 +16,11 @@ const submitForm = ({ contacts, ...client }) => {
     .then((cliente_id) => {
       NotificationService.notifySuccess('Client created');
 
+      if (contacts.length === 0) {
+        router.push({ path: '/dashboard/sales-management/clients' });
+        return;
+      }
+
       const promises = contacts.map(
         (contact) => store.createClientContact(cliente_id, contact)
       );

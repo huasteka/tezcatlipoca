@@ -27,6 +27,11 @@ const submitForm = ({ contacts, ...client }) => {
     .then((client_id) => {
       NotificationService.notifySuccess('Client updated');
 
+      if (contacts.length === 0) {
+        router.push({ path: '/dashboard/sales-management/clients' });
+        return;
+      }
+
       const promises = contacts.map((contact) => {
         if (contact.deletionMarked === true) {
           return store.deleteClientContact(client_id, contact.id);
