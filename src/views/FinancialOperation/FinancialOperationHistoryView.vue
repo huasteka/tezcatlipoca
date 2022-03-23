@@ -1,6 +1,7 @@
 <script setup>
 import { reactive } from 'vue';
 import { Minus, Plus, QuestionFilled, Search } from '@element-plus/icons-vue';
+import CurrencyService from '@/services/currencyFormatter';
 import { useFinancialStore } from '@/stores/finance';
 
 const store = useFinancialStore();
@@ -62,11 +63,7 @@ const getBudgetGroup = ({ category }) => {
 }
 
 const getMoney = (numericValue) => {
-  const currencyFormatter = new Intl.NumberFormat(navigator.language, {
-    style: 'currency',
-    currency: 'BRL',
-  });
-  return currencyFormatter.format(numericValue);
+  return CurrencyService.format(numericValue);
 }
 
 const handleAccountSelection = (accountId) => {

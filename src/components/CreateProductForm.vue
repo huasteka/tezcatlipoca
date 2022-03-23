@@ -10,9 +10,9 @@ const props = defineProps({
 
 const emit = defineEmits(['submit']);
 
-const { id = null, name = '', code = '', parent_id = null } = props.product || {};
+const { id = null, name = '', code = '' } = props.product || {};
 const createProductFormRef = ref();
-const createProductForm = reactive({ id, name, code, parent_id });
+const createProductForm = reactive({ id, name, code });
 const rules = reactive(createProductValidator);
 
 const navigateBack = () => router.push({ path: '/dashboard/sales-management/products' });

@@ -15,6 +15,7 @@ import financialOperationRoutes from './financialOperationRoutes';
 import clientRoutes from './clientRoutes';
 import supplierRoutes from './supplierRoutes';
 import productRoutes from './productRoutes';
+import merchandiseRoutes from './merchandiseRoutes';
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -71,7 +72,8 @@ const router = createRouter({
         ...financialOperationRoutes,
         ...clientRoutes,
         ...supplierRoutes,
-        ...productRoutes
+        ...productRoutes,
+        ...merchandiseRoutes,
       ],
     },
   ],
