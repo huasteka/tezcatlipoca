@@ -16,6 +16,7 @@ import clientRoutes from './clientRoutes';
 import supplierRoutes from './supplierRoutes';
 import productRoutes from './productRoutes';
 import merchandiseRoutes from './merchandiseRoutes';
+import deliveryAddressRoutes from './deliveryAddressRoutes';
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -74,6 +75,7 @@ const router = createRouter({
         ...supplierRoutes,
         ...productRoutes,
         ...merchandiseRoutes,
+        ...deliveryAddressRoutes,
       ],
     },
   ],
