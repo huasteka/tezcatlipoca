@@ -40,11 +40,11 @@ export function responseToMapReducer(resourceList) {
 
 export function formatIncludedData(included) {
   return (included || []).reduce(
-    (resourceMap, { id, type, attributes }) => ({
+    (resourceMap, { id, type, attributes, relationships = {} }) => ({
       ...resourceMap,
       [type]: {
         ...(resourceMap[type] || {}),
-        [id]: { id, ...attributes }
+        [id]: { id, ...attributes, relationships }
       }
     }), {}
   );

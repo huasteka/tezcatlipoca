@@ -1,12 +1,17 @@
 import { defineStore } from 'pinia';
-import { createPurchaseService, responseToMapReducer } from '@/services/huitzilopochtli';
+import {
+  createPurchaseService,
+  extractRelationships,
+  formatIncludedData,
+  responseToMapReducer
+} from '@/services/huitzilopochtli';
 import { useAuthStore } from '@/stores/authentication';
 
 const bearerToken = useAuthStore().bearerToken;
 const purchaseService = createPurchaseService(bearerToken);
 
 export const useSalesPurchaseStore = defineStore({
-  id: 'huitzilopochtli-purchase',
+  id: 'huitzilopochtli-purchases',
 
   state: () => ({
     purchaseList: {},
@@ -16,17 +21,30 @@ export const useSalesPurchaseStore = defineStore({
 
   getters: {
     purchases: (state) => Object.values(state.purchaseList),
+
     purchaseWithRelationships: (state) => {
       if (state.selectedPurchase) {
-        const contacts = state.selectedPurchase.contacts.map(
-          contactId => state.purchaseIncludedData['contacts'][contactId]
-        );
+        const merchandises_purchased = state.selectedPurchase.merchandisesPurchased.map(merchandisePurchasedId => {
+          const purchasedMerchandise = state.purchaseIncludedData['merchandises_purchased'][merchandisePurchasedId];
+          const supplierId = purchasedMerchandise.relationships.supplier.data.slice().pop()?.id;
+          const merchandiseId = purchasedMerchandise.relationships.merchandise.data.slice().pop()?.id;
 
-        return { ...state.selectedPurchase, contacts }
+          const merchandise = state.purchaseIncludedData['merchandises'][merchandiseId];
+          const productId = merchandise.relationships.product.data.slice().pop()?.id;
+
+          return {
+            ...purchasedMerchandise,
+            supplier: { ...state.purchaseIncludedData['suppliers'][supplierId] },
+            merchandise: { ...merchandise },
+            product: { ...state.purchaseIncludedData['products'][productId] }
+          };
+        });
+
+        return { ...state.selectedPurchase, merchandises_purchased }
       }
 
       return null;
-    }
+    },
   },
 
   actions: {
@@ -34,10 +52,7 @@ export const useSalesPurchaseStore = defineStore({
       const { data } = await purchaseService.fetchPurchaseList(pagination);
       this.$patch((state) => {
         state.purchaseList = responseToMapReducer(data.data);
-
-        (data.included || []).forEach(
-          ({ id, type, attributes }) => state.purchaseIncludedData[type][id] = { id, ...attributes }
-        );
+        state.purchaseIncludedData = formatIncludedData(data.included);
       });
     },
 
@@ -49,20 +64,22 @@ export const useSalesPurchaseStore = defineStore({
 
       const { data } = await purchaseService.fetchPurchase(purchase_id);
       this.$patch((state) => {
-        state.selectedPurchase = { id: data.data.id, ...data.data.attributes };
-        data.included.forEach(
-          ({ id, type, attributes }) => state.purchaseIncludedData[type][id] = { id, ...attributes }
-        );
+        state.selectedPurchase = {
+          id: data.data.id,
+          ...data.data.attributes,
+          ...extractRelationships(data.data.relationships)
+        };
+        state.purchaseIncludedData = formatIncludedData(data.included);
       });
     },
 
-    async createPurchase({ name, legal_document_code }) {
-      const { data } = await purchaseService.createPurchase({ name, legal_document_code });
+    async createPurchase(purchasePayload) {
+      const { data } = await purchaseService.createPurchase(purchasePayload);
       this.$patch((state) => state.purchaseList[data.data.id] = data.data);
     },
 
-    async updatePurchase({ id, name, legal_document_code }) {
-      const updatedPurchase = { id, name, legal_document_code };
+    async updatePurchase({ id, ...purchasePayload }) {
+      const updatedPurchase = { id, ...purchasePayload };
       await purchaseService.updatePurchase(updatedPurchase);
       this.$patch((state) => state.purchaseList[id] = updatedPurchase);
     },

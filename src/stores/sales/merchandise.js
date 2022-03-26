@@ -39,11 +39,11 @@ export const useSalesMerchandiseStore = defineStore({
         );
 
         // A merchandise have only one product
-        return { ...state.selectedMerchandise, product: products.pop() }
+        return { ...state.selectedMerchandise, product: products.slice().pop() }
       }
 
       return null;
-    }
+    },
   },
 
   actions: {
