@@ -1,5 +1,5 @@
 <script setup>
-import CreateMeasureUnitForm from '@/components/CreateMeasureUnitForm.vue';
+import StorageMeasureUnitForm from '@/components/StorageMeasureUnitForm.vue';
 import NotificationService from '@/services/notify';
 import { useStorageStore } from '@/stores/storage';
 import router from '@/router';
@@ -19,5 +19,5 @@ const submitForm = (measureUnitModel) => {
 <template>
   <h2>Create measurement unit</h2>
 
-  <CreateMeasureUnitForm @submit="submitForm($event)" />
+  <StorageMeasureUnitForm @submit="submitForm($event)" />
 </template>

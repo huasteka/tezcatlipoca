@@ -1,6 +1,6 @@
 <script setup>
 import { reactive } from 'vue';
-import CreateProductForm from '@/components/CreateProductForm.vue';
+import SalesProductForm from '@/components/SalesProductForm.vue';
 import NotificationService from '@/services/notify';
 import { useSalesProductStore } from '@/stores/sales/product';
 import router from '@/router';
@@ -38,7 +38,7 @@ const submitForm = (productModel) => {
 
   <div v-loading="vm.isLoading">
     <div v-if="vm.product !== null">
-      <CreateProductForm :product="vm.product" @submit="submitForm($event)" />
+      <SalesProductForm :product="vm.product" @submit="submitForm($event)" />
     </div>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <script setup>
 import { reactive } from 'vue';
-import CreateClientForm from '@/components/CreateClientForm.vue';
+import SalesClientForm from '@/components/SalesClientForm.vue';
 import NotificationService from '@/services/notify';
 import { useSalesClientStore } from '@/stores/sales/client';
 import router from '@/router';
@@ -44,6 +44,6 @@ const submitForm = ({ contacts, ...client }) => {
   <h2>Create client</h2>
 
   <div v-loading="vm.isLoading">
-    <CreateClientForm @submit="submitForm($event)" />
+    <SalesClientForm @submit="submitForm($event)" />
   </div>
 </template>

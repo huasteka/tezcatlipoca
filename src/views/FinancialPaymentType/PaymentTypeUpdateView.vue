@@ -1,6 +1,6 @@
 <script setup>
 import { reactive } from 'vue';
-import CreatePaymentTypeForm from '@/components/CreatePaymentTypeForm.vue';
+import FinancialPaymentTypeForm from '@/components/FinancialPaymentTypeForm.vue';
 import NotificationService from '@/services/notify';
 import { useFinancialStore } from '@/stores/finance';
 import router from '@/router';
@@ -38,7 +38,7 @@ const submitForm = (paymentTypeModel) => {
 
   <div v-loading="vm.isLoading">
     <div v-if="vm.paymentType !== null">
-      <CreatePaymentTypeForm :paymentType="vm.paymentType" @submit="submitForm($event)" />
+      <FinancialPaymentTypeForm :paymentType="vm.paymentType" @submit="submitForm($event)" />
     </div>
   </div>
 </template>

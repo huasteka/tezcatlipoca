@@ -1,5 +1,5 @@
 <script setup>
-import CreateDeliveryAddressForm from '@/components/CreateDeliveryAddressForm.vue';
+import SalesDeliveryAddressForm from '@/components/SalesDeliveryAddressForm.vue';
 import NotificationService from '@/services/notify';
 import { useSalesDeliveryAddressStore } from '@/stores/sales/deliveryAddress';
 import router from '@/router';
@@ -19,5 +19,5 @@ const submitForm = (deliveryAddressModel) => {
 <template>
   <h2>Create delivery address</h2>
 
-  <CreateDeliveryAddressForm @submit="submitForm($event)" />
+  <SalesDeliveryAddressForm @submit="submitForm($event)" />
 </template>

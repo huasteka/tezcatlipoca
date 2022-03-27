@@ -1,5 +1,5 @@
 <script setup>
-import CreateAccountForm from '@/components/CreateAccountForm.vue';
+import FinancialAccountForm from '@/components/FinancialAccountForm.vue';
 import NotificationService from '@/services/notify';
 import { useFinancialStore } from '@/stores/finance';
 import router from '@/router';
@@ -19,5 +19,5 @@ const submitForm = (measureUnitModel) => {
 <template>
   <h2>Create account</h2>
 
-  <CreateAccountForm @submit="submitForm($event)" />
+  <FinancialAccountForm @submit="submitForm($event)" />
 </template>

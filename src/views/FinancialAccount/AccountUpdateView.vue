@@ -1,6 +1,6 @@
 <script setup>
 import { reactive } from 'vue';
-import CreateAccountForm from '@/components/CreateAccountForm.vue';
+import FinancialAccountForm from '@/components/FinancialAccountForm.vue';
 import NotificationService from '@/services/notify';
 import { useFinancialStore } from '@/stores/finance';
 import router from '@/router';
@@ -38,7 +38,7 @@ const submitForm = (accountModel) => {
 
   <div v-loading="vm.isLoading">
     <div v-if="vm.account !== null">
-      <CreateAccountForm :account="vm.account" @submit="submitForm($event)" />
+      <FinancialAccountForm :account="vm.account" @submit="submitForm($event)" />
     </div>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <script setup>
 import { reactive } from 'vue';
-import CreateMeasureUnitForm from '@/components/CreateMeasureUnitForm.vue';
+import StorageMeasureUnitForm from '@/components/StorageMeasureUnitForm.vue';
 import NotificationService from '@/services/notify';
 import { useStorageStore } from '@/stores/storage';
 import router from '@/router';
@@ -38,7 +38,7 @@ const submitForm = (measureUnitModel) => {
 
   <div v-loading="vm.isLoading">
     <div v-if="vm.measureUnit !== null">
-      <CreateMeasureUnitForm :measure-unit="vm.measureUnit" @submit="submitForm($event)" />
+      <StorageMeasureUnitForm :measure-unit="vm.measureUnit" @submit="submitForm($event)" />
     </div>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <script setup>
-import CreateBudgetCategoryForm from '@/components/CreateBudgetCategoryForm.vue';
+import FinancialBudgetCategoryForm from '@/components/FinancialBudgetCategoryForm.vue';
 import NotificationService from '@/services/notify';
 import { useFinancialStore } from '@/stores/finance';
 import router from '@/router';
@@ -19,5 +19,5 @@ const submitForm = (budgetCategoryModel) => {
 <template>
   <h2>Create budget category</h2>
 
-  <CreateBudgetCategoryForm @submit="submitForm($event)" />
+  <FinancialBudgetCategoryForm @submit="submitForm($event)" />
 </template>

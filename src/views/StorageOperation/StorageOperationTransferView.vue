@@ -1,6 +1,6 @@
 <script setup>
 import Alert from '@/components/Alert.vue';
-import CreateStorageTransferForm from '@/components/CreateStorageTransferForm.vue';
+import StorageOperationTransferForm from '@/components/StorageOperationTransferForm.vue';
 import NotificationService from '@/services/notify';
 import { useAlertStore } from '@/stores/alerts';
 import { useStorageStore } from '@/stores/storage';
@@ -27,5 +27,5 @@ const handleSubmit = ({ model, clearForm }) => {
 
   <Alert />
 
-  <CreateStorageTransferForm @submit="handleSubmit($event)" />
+  <StorageOperationTransferForm @submit="handleSubmit($event)" />
 </template>

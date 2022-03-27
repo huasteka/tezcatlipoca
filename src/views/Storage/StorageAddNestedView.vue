@@ -1,6 +1,6 @@
 <script setup>
 import { reactive } from 'vue';
-import CreateStorageForm from '@/components/CreateStorageForm.vue';
+import StorageForm from '@/components/StorageForm.vue';
 import NotificationService from '@/services/notify';
 import { useStorageStore } from '@/stores/storage';
 import router from '@/router';
@@ -34,6 +34,6 @@ const submitForm = (storageModel) => {
   <h2>Add nested storage</h2>
 
   <div v-loading="vm.isLoading">
-    <CreateStorageForm @submit="submitForm($event)" />
+    <StorageForm @submit="submitForm($event)" />
   </div>
 </template>

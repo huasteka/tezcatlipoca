@@ -1,6 +1,6 @@
 <script setup>
 import { reactive } from 'vue';
-import CreateMerchandiseForm from '@/components/CreateMerchandiseForm.vue';
+import SalesMerchandiseForm from '@/components/SalesMerchandiseForm.vue';
 import NotificationService from '@/services/notify';
 import { useSalesMerchandiseStore } from '@/stores/sales/merchandise';
 import router from '@/router';
@@ -44,7 +44,7 @@ const submitForm = ({ product_id, product, ...merchandise }) => {
 
   <div v-loading="vm.isLoading">
     <div v-if="vm.merchandise !== null">
-      <CreateMerchandiseForm :merchandise="vm.merchandise" @submit="submitForm($event)" />
+      <SalesMerchandiseForm :merchandise="vm.merchandise" @submit="submitForm($event)" />
     </div>
   </div>
 </template>

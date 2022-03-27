@@ -1,5 +1,5 @@
 <script setup>
-import CreateStorageOperationForm from '@/components/CreateStorageOperationForm.vue';
+import StorageOperationForm from '@/components/StorageOperationForm.vue';
 import NotificationService from '@/services/notify';
 import { useStorageStore } from '@/stores/storage';
 
@@ -18,5 +18,5 @@ const handleSubmit = ({ model, clearForm }) => {
 <template>
   <h2>Storage Deposit</h2>
 
-  <CreateStorageOperationForm @submit="handleSubmit($event)" />
+  <StorageOperationForm @submit="handleSubmit($event)" />
 </template>
