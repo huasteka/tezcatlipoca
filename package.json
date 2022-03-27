@@ -1,6 +1,7 @@
 {
   "name": "tezcatlipoca",
   "version": "1.0.0",
+  "description": "The UI application to manage a small company",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

@@ -3,51 +3,47 @@ import { reactive } from 'vue';
 import { ElMessageBox } from 'element-plus';
 import { Delete, EditPen, Plus } from '@element-plus/icons-vue';
 import NotificationService from '@/services/notify';
-import { useStorageStore } from '@/stores/storage';
+import { useSalesClientStore } from '@/stores/sales/client';
 import router from '@/router';
 
-const store = useStorageStore();
+const store = useSalesClientStore();
 
 const vm = reactive({ isLoading: true });
-store.fetchStorageList().then(() => {
+store.fetchClientList().then(() => {
   vm.isLoading = false;
 });
 
-const handleNewStorage = () => {
-  router.push({ path: '/dashboard/storage-management/storages/new' });
+const handleNewClient = () => {
+  router.push({ path: '/dashboard/sales-management/clients/new' });
 }
 
-const handleNewChildStorage = (event) => {
-  router.push({ path: `/dashboard/storage-management/storages/${event.id}/add` });
+const handleUpdateClient = (event) => {
+  router.push({ path: `/dashboard/sales-management/clients/${event.id}/edit` })
 }
 
-const handleUpdateStorage = (event) => {
-  router.push({ path: `/dashboard/storage-management/storages/${event.id}/edit` });
-}
-
-const handleDeleteStorage = (event) => {
-  ElMessageBox.confirm('Are you sure to delete this storage?')
+const handleDeleteClient = (event) => {
+  ElMessageBox.confirm('Are you sure to delete this client?')
     .then(() => {
-      store.deleteStorage(event.id)
-        .then(() => NotificationService.notifySuccess('Storage deleted'))
-        .catch(() => NotificationService.notifyError('Could not delete storage'));
+      store.deleteClient(event.id)
+        .then(() => NotificationService.notifySuccess('Client deleted'))
+        .catch(() => NotificationService.notifyError('Could not delete client'));
     })
     .catch(() => null);
 }
 </script>
 
 <template>
-  <h2>List storages</h2>
+  <h2>List clients</h2>
 
   <el-table
     class="resize-and-center-data-table"
     row-key="id"
-    :data="store.storages"
+    :data="store.clients"
     v-loading="vm.isLoading"
   >
     <el-table-column width="100" prop="id" label="#" />
-    <el-table-column prop="code" label="Code" />
     <el-table-column prop="name" label="Name" />
+    <el-table-column prop="legal_document_code" label="Legal Document" />
 
     <el-table-column width="250">
       <template #header>
@@ -55,7 +51,7 @@ const handleDeleteStorage = (event) => {
           class="align-content-right"
           type="primary"
           size="small"
-          @click.prevent="handleNewStorage()"
+          @click.prevent="handleNewClient()"
         >
           <el-icon>
             <Plus />
@@ -66,26 +62,14 @@ const handleDeleteStorage = (event) => {
 
       <template #default="scope">
         <el-button-group class="align-content-right">
-          <el-button
-            type="primary"
-            size="small"
-            v-if="scope.row.parent_id === undefined"
-            @click.prevent="handleNewChildStorage(scope.row)"
-          >
-            <el-icon>
-              <Plus />
-            </el-icon>
-            <span>Add</span>
-          </el-button>
-
-          <el-button size="small" @click.prevent="handleUpdateStorage(scope.row)">
+          <el-button size="small" @click.prevent="handleUpdateClient(scope.row)">
             <el-icon>
               <EditPen />
             </el-icon>
             <span>Update</span>
           </el-button>
 
-          <el-button type="danger" size="small" @click.prevent="handleDeleteStorage(scope.row)">
+          <el-button type="danger" size="small" @click.prevent="handleDeleteClient(scope.row)">
             <el-icon>
               <Delete />
             </el-icon>

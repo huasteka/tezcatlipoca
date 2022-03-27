@@ -12,6 +12,12 @@ import budgetCategoryRoutes from './budgetCategoryRoutes';
 import accountRoutes from './accountRoutes';
 import paymentTypeRoutes from './paymentTypeRoutes';
 import financialOperationRoutes from './financialOperationRoutes';
+import clientRoutes from './clientRoutes';
+import supplierRoutes from './supplierRoutes';
+import productRoutes from './productRoutes';
+import merchandiseRoutes from './merchandiseRoutes';
+import deliveryAddressRoutes from './deliveryAddressRoutes';
+import salesOperationRoutes from './salesOperationRoutes';
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -66,6 +72,12 @@ const router = createRouter({
         ...accountRoutes,
         ...paymentTypeRoutes,
         ...financialOperationRoutes,
+        ...clientRoutes,
+        ...supplierRoutes,
+        ...productRoutes,
+        ...merchandiseRoutes,
+        ...deliveryAddressRoutes,
+        ...salesOperationRoutes,
       ],
     },
   ],

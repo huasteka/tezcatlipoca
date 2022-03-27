@@ -1,9 +1,15 @@
 <script setup>
 import { reactive } from 'vue';
 import { Minus, Plus, QuestionFilled, Search } from '@element-plus/icons-vue';
+import CurrencyService from '@/services/currencyFormatter';
 import { useFinancialStore } from '@/stores/finance';
 
 const store = useFinancialStore();
+
+const operationTypes = {
+  DEPOSIT: 'DEPOSIT',
+  WITHDRAW: 'WITHDRAW',
+};
 
 const vm = reactive({ isLoading: true, history: [] });
 const loadHistory = (accountId) => store.fetchOperationHistory(accountId)
@@ -37,9 +43,9 @@ const getTitle = ({ type, description }) => {
 
 const getIcon = ({ type }) => {
   switch (type) {
-    case 'DEPOSIT':
+    case operationTypes.DEPOSIT:
       return Plus;
-    case 'WITHDRAW':
+    case operationTypes.WITHDRAW:
       return Minus;
     default:
       return QuestionFilled;
@@ -48,9 +54,9 @@ const getIcon = ({ type }) => {
 
 const getType = ({ type }) => {
   switch (type) {
-    case 'DEPOSIT':
+    case operationTypes.DEPOSIT:
       return 'success';
-    case 'WITHDRAW':
+    case operationTypes.WITHDRAW:
       return 'danger';
     default:
       return 'warning';
@@ -61,12 +67,8 @@ const getBudgetGroup = ({ category }) => {
   return category.id === null ? '-' : `${category.group.name} > ${category.name}`;
 }
 
-const getMoney = (numericValue) => {
-  const currencyFormatter = new Intl.NumberFormat(navigator.language, {
-    style: 'currency',
-    currency: 'BRL',
-  });
-  return currencyFormatter.format(numericValue);
+const getMoney = (numericValue = 0) => {
+  return CurrencyService.format(numericValue);
 }
 
 const handleAccountSelection = (accountId) => {

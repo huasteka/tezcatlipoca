@@ -25,8 +25,8 @@ const submitForm = (measureUnitModel) => {
   vm.isLoading = true;
   store.updateMeasureUnit(measureUnitModel)
     .then(() => {
-      NotificationService.notifySuccess('Measurement unit updated')
-      router.push({ path: '/dashboard/storage-management/measure-units' })
+      NotificationService.notifySuccess('Measurement unit updated');
+      router.push({ path: '/dashboard/storage-management/measure-units' });
     })
     .catch(() => NotificationService.notifyError('Could not update measurement unit'))
     .finally(() => vm.isLoading = false);

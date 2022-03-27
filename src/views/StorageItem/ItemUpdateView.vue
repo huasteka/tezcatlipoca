@@ -25,8 +25,8 @@ const submitForm = (itemModel) => {
   vm.isLoading = true;
   store.updateItem(itemModel)
     .then(() => {
-      NotificationService.notifySuccess('Item updated')
-      router.push({ path: '/dashboard/storage-management/items' })
+      NotificationService.notifySuccess('Item updated');
+      router.push({ path: '/dashboard/storage-management/items' });
     })
     .catch(() => NotificationService.notifyError('Could not update item'))
     .finally(() => vm.isLoading = false);

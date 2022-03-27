@@ -25,8 +25,8 @@ const submitForm = (paymentTypeModel) => {
   vm.isLoading = true;
   store.updatePaymentType(paymentTypeModel)
     .then(() => {
-      NotificationService.notifySuccess('Payment type updated')
-      router.push({ path: '/dashboard/finance-management/payment-types' })
+      NotificationService.notifySuccess('Payment type updated');
+      router.push({ path: '/dashboard/finance-management/payment-types' });
     })
     .catch(() => NotificationService.notifyError('Could not update payment type'))
     .finally(() => vm.isLoading = false);

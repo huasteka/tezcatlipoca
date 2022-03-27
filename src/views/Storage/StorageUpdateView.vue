@@ -25,8 +25,8 @@ const submitForm = (storageModel) => {
   vm.isLoading = true;
   store.updateStorage(storageModel)
     .then(() => {
-      NotificationService.notifySuccess('Storage updated')
-      router.push({ path: '/dashboard/storage-management/storages' })
+      NotificationService.notifySuccess('Storage updated');
+      router.push({ path: '/dashboard/storage-management/storages' });
     })
     .catch(() => NotificationService.notifyError('Could not update storage'))
     .finally(() => vm.isLoading = false);
