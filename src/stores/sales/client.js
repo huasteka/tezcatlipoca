@@ -21,6 +21,7 @@ export const useSalesClientStore = defineStore({
 
   getters: {
     clients: (state) => Object.values(state.clientList),
+    clientsFixed: (state) => Object.values(state.clientList).map((c) => ({ ...c, id: parseInt(c.id, 10) })),
     clientWithRelationships: (state) => {
       if (state.selectedClient) {
         const contacts = state.selectedClient.contacts.map(

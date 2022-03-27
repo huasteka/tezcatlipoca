@@ -19,7 +19,7 @@ const formatRetailPrice = (merchandiseRow) => {
 }
 
 const formatPurchasePrice = (merchandiseRow) => {
-  return CurrencyService.format(merchandiseRow.retail_price);
+  return CurrencyService.format(merchandiseRow.purchase_price);
 }
 
 const handleNewMerchandise = () => {

@@ -21,6 +21,7 @@ export const useSalesSupplierStore = defineStore({
 
   getters: {
     suppliers: (state) => Object.values(state.supplierList),
+    suppliersFixed: (state) => Object.values(state.supplierList).map((s) => ({ ...s, id: parseInt(s.id, 10) })),
     supplierWithRelationships: (state) => {
       if (state.selectedSupplier) {
         const contacts = state.selectedSupplier.contacts.map(
