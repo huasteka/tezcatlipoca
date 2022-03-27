@@ -1,5 +1,5 @@
 <script setup>
-import CreateBudgetGroupForm from '@/components/CreateBudgetGroupForm.vue';
+import FinancialBudgetGroupForm from '@/components/FinancialBudgetGroupForm.vue';
 import NotificationService from '@/services/notify';
 import { useFinancialStore } from '@/stores/finance';
 import router from '@/router';
@@ -19,5 +19,5 @@ const submitForm = (budgetGroupModel) => {
 <template>
   <h2>Create budget group</h2>
 
-  <CreateBudgetGroupForm @submit="submitForm($event)" />
+  <FinancialBudgetGroupForm @submit="submitForm($event)" />
 </template>

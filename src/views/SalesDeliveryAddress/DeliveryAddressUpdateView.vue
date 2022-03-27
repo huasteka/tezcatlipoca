@@ -1,6 +1,6 @@
 <script setup>
 import { reactive } from 'vue';
-import CreateDeliveryAddressForm from '@/components/CreateDeliveryAddressForm.vue';
+import SalesDeliveryAddressForm from '@/components/SalesDeliveryAddressForm.vue';
 import NotificationService from '@/services/notify';
 import { useSalesDeliveryAddressStore } from '@/stores/sales/deliveryAddress';
 import router from '@/router';
@@ -38,7 +38,7 @@ const submitForm = (deliveryAddressModel) => {
 
   <div v-loading="vm.isLoading">
     <div v-if="vm.deliveryAddress !== null">
-      <CreateDeliveryAddressForm
+      <SalesDeliveryAddressForm
         :deliveryAddress="vm.deliveryAddress"
         @submit="submitForm($event)"
       />

@@ -1,6 +1,6 @@
 <script setup>
 import { reactive } from 'vue';
-import CreateBudgetCategoryForm from '@/components/CreateBudgetCategoryForm.vue';
+import FinancialBudgetCategoryForm from '@/components/FinancialBudgetCategoryForm.vue';
 import NotificationService from '@/services/notify';
 import { useFinancialStore } from '@/stores/finance';
 import router from '@/router';
@@ -38,7 +38,7 @@ const submitForm = (budgetCategoryModel) => {
 
   <div v-loading="vm.isLoading">
     <div v-if="vm.budgetCategory !== null">
-      <CreateBudgetCategoryForm :budgetCategory="vm.budgetCategory" @submit="submitForm($event)" />
+      <FinancialBudgetCategoryForm :budgetCategory="vm.budgetCategory" @submit="submitForm($event)" />
     </div>
   </div>
 </template>

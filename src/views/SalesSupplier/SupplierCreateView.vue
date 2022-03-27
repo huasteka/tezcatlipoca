@@ -1,6 +1,6 @@
 <script setup>
 import { reactive } from 'vue';
-import CreateSupplierForm from '@/components/CreateSupplierForm.vue';
+import SalesSupplierForm from '@/components/SalesSupplierForm.vue';
 import NotificationService from '@/services/notify';
 import { useSalesSupplierStore } from '@/stores/sales/supplier';
 import router from '@/router';
@@ -44,6 +44,6 @@ const submitForm = ({ contacts, ...supplier }) => {
   <h2>Create supplier</h2>
 
   <div v-loading="vm.isLoading">
-    <CreateSupplierForm @submit="submitForm($event)" />
+    <SalesSupplierForm @submit="submitForm($event)" />
   </div>
 </template>

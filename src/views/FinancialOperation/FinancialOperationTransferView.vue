@@ -1,6 +1,6 @@
 <script setup>
 import Alert from '@/components/Alert.vue';
-import CreateFinancialTransferForm from '@/components/CreateFinancialTransferForm.vue';
+import FinancialOperationTransferForm from '@/components/FinancialOperationTransferForm.vue';
 import NotificationService from '@/services/notify';
 import { useAlertStore } from '@/stores/alerts';
 import { useFinancialStore } from '@/stores/finance';
@@ -27,5 +27,5 @@ const handleSubmit = ({ model, clearForm }) => {
 
   <Alert />
 
-  <CreateFinancialTransferForm @submit="handleSubmit($event)" />
+  <FinancialOperationTransferForm @submit="handleSubmit($event)" />
 </template>

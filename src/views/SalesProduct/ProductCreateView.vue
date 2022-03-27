@@ -1,5 +1,5 @@
 <script setup>
-import CreateProductForm from '@/components/CreateProductForm.vue';
+import SalesProductForm from '@/components/SalesProductForm.vue';
 import NotificationService from '@/services/notify';
 import { useSalesProductStore } from '@/stores/sales/product';
 import router from '@/router';
@@ -19,5 +19,5 @@ const submitForm = (productModel) => {
 <template>
   <h2>Create product</h2>
 
-  <CreateProductForm @submit="submitForm($event)" />
+  <SalesProductForm @submit="submitForm($event)" />
 </template>

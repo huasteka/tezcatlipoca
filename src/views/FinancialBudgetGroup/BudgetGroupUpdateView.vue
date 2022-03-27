@@ -1,6 +1,6 @@
 <script setup>
 import { reactive } from 'vue';
-import CreateBudgetGroupForm from '@/components/CreateBudgetGroupForm.vue';
+import FinancialBudgetGroupForm from '@/components/FinancialBudgetGroupForm.vue';
 import NotificationService from '@/services/notify';
 import { useFinancialStore } from '@/stores/finance';
 import router from '@/router';
@@ -38,7 +38,7 @@ const submitForm = (budgetGroupModel) => {
 
   <div v-loading="vm.isLoading">
     <div v-if="vm.budgetGroup !== null">
-      <CreateBudgetGroupForm :budgetGroup="vm.budgetGroup" @submit="submitForm($event)" />
+      <FinancialBudgetGroupForm :budgetGroup="vm.budgetGroup" @submit="submitForm($event)" />
     </div>
   </div>
 </template>

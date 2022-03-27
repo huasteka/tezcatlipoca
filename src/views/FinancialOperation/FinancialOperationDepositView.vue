@@ -1,5 +1,5 @@
 <script setup>
-import CreateFinancialOperationForm from '@/components/CreateFinancialOperationForm.vue';
+import FinancialOperationForm from '@/components/FinancialOperationForm.vue';
 import NotificationService from '@/services/notify';
 import { useFinancialStore } from '@/stores/finance';
 
@@ -18,5 +18,5 @@ const handleSubmit = ({ model, clearForm }) => {
 <template>
   <h2>Deposit into account</h2>
 
-  <CreateFinancialOperationForm @submit="handleSubmit($event)" />
+  <FinancialOperationForm @submit="handleSubmit($event)" />
 </template>

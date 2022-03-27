@@ -1,5 +1,5 @@
 <script setup>
-import CreateStorageForm from '@/components/CreateStorageForm.vue';
+import StorageForm from '@/components/StorageForm.vue';
 import NotificationService from '@/services/notify';
 import { useStorageStore } from '@/stores/storage';
 import router from '@/router';
@@ -19,5 +19,5 @@ const submitForm = (storageModel) => {
 <template>
   <h2>Create storage</h2>
 
-  <CreateStorageForm @submit="submitForm($event)" />
+  <StorageForm @submit="submitForm($event)" />
 </template>
