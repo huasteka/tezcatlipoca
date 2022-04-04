@@ -10,6 +10,15 @@ const mainHeroContent = 'A management system for you to take control of your com
 
 <template>
   <el-row :gutter="15">
+    <el-col :xs="24" class="hidden-md-and-up">
+      <div class="main-hero-container-xs">
+        <div class="main-hero-section">
+          <h1 class="main-hero-section-title">{{ mainHeroTitle }}</h1>
+          <p class="main-hero-section-content">{{ mainHeroContent }}</p>
+        </div>
+      </div>
+    </el-col>
+
     <el-col :xs="24" :md="9">
       <div class="logo-container">
         <LogoImage />
@@ -18,8 +27,8 @@ const mainHeroContent = 'A management system for you to take control of your com
       <RouterView />
     </el-col>
 
-    <el-col :xs="24" :md="15">
-      <div class="main-hero-container">
+    <el-col :md="15" class="hidden-sm-and-down">
+      <div class="main-hero-container-md">
         <div class="main-hero-section">
           <h1 class="main-hero-section-title">{{ mainHeroTitle }}</h1>
           <p class="main-hero-section-content">{{ mainHeroContent }}</p>
@@ -38,10 +47,16 @@ const mainHeroContent = 'A management system for you to take control of your com
 }
 
 .logo-container {
-  margin-bottom: 85px;
+  margin-bottom: 80px;
 }
 
-.main-hero-container {
+.main-hero-container-xs {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.main-hero-container-md {
   display: flex;
   align-items: center;
   margin-bottom: 50px;
