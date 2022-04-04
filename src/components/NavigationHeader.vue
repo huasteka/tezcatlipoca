@@ -18,6 +18,12 @@ const navigationStore = useNavigationStore();
 const activeIndex = ref(navigationStore.currentDashboardPath);
 
 const handleSelect = (key, keyPath) => {
+  // Fix bug inserted by Element UI when elipsis is activated
+  const removeIndex = keyPath.findIndex((k) => k === 'sub-menu-more');
+  if (removeIndex !== -1) {
+    keyPath.splice(removeIndex, 1);
+  }
+
   if (key === 'logout') {
     authStore.logout();
     navigationStore.logout();

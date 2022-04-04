@@ -45,7 +45,7 @@ const handleDeleteProduct = (event) => {
     <el-table-column prop="code" label="Code" />
     <el-table-column prop="name" label="Name" />
 
-    <el-table-column width="250">
+    <el-table-column width="200">
       <template #header>
         <el-button
           class="align-content-right"

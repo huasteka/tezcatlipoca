@@ -17,7 +17,7 @@ const submitForm = (paymentTypeModel) => {
 </script>
 
 <template>
-  <h2>Create payment types</h2>
+  <h2>Create payment type</h2>
 
   <FinancialPaymentTypeForm @submit="submitForm($event)" />
 </template>

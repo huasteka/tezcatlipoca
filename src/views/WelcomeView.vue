@@ -1,5 +1,6 @@
 <script setup>
 import { RouterView } from 'vue-router';
+import 'element-plus/theme-chalk/display.css';
 import LogoImage from '@/components/LogoImage.vue';
 import WelcomeImage from '@/components/WelcomeImage.vue';
 
@@ -8,17 +9,26 @@ const mainHeroContent = 'A management system for you to take control of your com
 </script>
 
 <template>
-  <el-container>
-    <el-aside width="35%">
+  <el-row :gutter="15">
+    <el-col :xs="24" class="hidden-md-and-up">
+      <div class="main-hero-container-xs">
+        <div class="main-hero-section">
+          <h1 class="main-hero-section-title">{{ mainHeroTitle }}</h1>
+          <p class="main-hero-section-content">{{ mainHeroContent }}</p>
+        </div>
+      </div>
+    </el-col>
+
+    <el-col :xs="24" :md="9">
       <div class="logo-container">
         <LogoImage />
       </div>
 
       <RouterView />
-    </el-aside>
+    </el-col>
 
-    <el-main>
-      <div class="main-hero-container">
+    <el-col :md="15" class="hidden-sm-and-down">
+      <div class="main-hero-container-md">
         <div class="main-hero-section">
           <h1 class="main-hero-section-title">{{ mainHeroTitle }}</h1>
           <p class="main-hero-section-content">{{ mainHeroContent }}</p>
@@ -26,15 +36,27 @@ const mainHeroContent = 'A management system for you to take control of your com
       </div>
 
       <WelcomeImage />
-    </el-main>
-  </el-container>
+    </el-col>
+  </el-row>
 </template>
 
 <style scoped>
-.logo-container {
-  margin-bottom: 85px;
+.login-form-container {
+  margin: 0 auto;
+  text-align: center;
 }
-.main-hero-container {
+
+.logo-container {
+  margin-bottom: 80px;
+}
+
+.main-hero-container-xs {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.main-hero-container-md {
   display: flex;
   align-items: center;
   margin-bottom: 50px;
@@ -43,7 +65,6 @@ const mainHeroContent = 'A management system for you to take control of your com
 .main-hero-section {
   display: block;
   margin: 0 auto;
-  width: 80%;
 }
 
 .main-hero-section-title {

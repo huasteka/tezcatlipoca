@@ -34,7 +34,7 @@ const submitForm = (form) => {
 
 <template>
   <el-form
-    label-width="150px"
+    label-width="90px"
     ref="createMeasureUnitFormRef"
     :model="createMeasureUnitForm"
     :rules="rules"

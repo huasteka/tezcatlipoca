@@ -43,7 +43,7 @@ const submitForm = (form) => {
 
 <template>
   <el-form
-    label-width="150px"
+    label-width="130px"
     ref="createStorageTransferFormRef"
     v-loading="vm.isLoading"
     :model="createStorageTransferForm"

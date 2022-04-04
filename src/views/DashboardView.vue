@@ -5,8 +5,8 @@ import StorageManagementImage from '@/components/StorageManagementImage.vue';
 </script>
 
 <template>
-  <el-row class="template-row-margin-top">
-    <el-col :span="8">
+  <el-row class="template-row-margin-top" :gutter="15">
+    <el-col :xs="24" :sm="12" :md="8">
       <RouterLink to="/dashboard/storage-management/storage-history" v-slot="{ href }" custom>
         <el-link type="primary" :href="href" :underline="false">
           <StorageManagementImage />
@@ -15,7 +15,7 @@ import StorageManagementImage from '@/components/StorageManagementImage.vue';
       </RouterLink>
     </el-col>
 
-    <el-col :span="8">
+    <el-col :xs="24" :sm="12" :md="8">
       <RouterLink to="/dashboard/finance-management/financial-history" v-slot="{ href }" custom>
         <el-link type="primary" :href="href" :underline="false">
           <FinancialManagementImage />
@@ -24,7 +24,7 @@ import StorageManagementImage from '@/components/StorageManagementImage.vue';
       </RouterLink>
     </el-col>
 
-    <el-col :span="8">
+    <el-col :xs="24" :sm="12" :md="8">
       <RouterLink to="/dashboard/sales-management/sales-history" v-slot="{ href }" custom>
         <el-link type="primary" :href="href" :underline="false">
           <SalesManagementImage />

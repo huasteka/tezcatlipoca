@@ -71,6 +71,6 @@ const submitForm = (form) => {
   text-align: center;
 }
 .align-router-link-right {
-  text-align: right;
+  text-align: center;
 }
 </style>

@@ -25,13 +25,13 @@ const submitForm = (storageModel) => {
   vm.isLoading = true;
   store.createNestedStorage({ parentId: vm.storage.id, ...storageModel })
     .then(() => router.push({ path: '/dashboard/storage-management/storages' }))
-    .catch(() => NotificationService.notifyError('Could not create nested storage'))
+    .catch(() => NotificationService.notifyError('Could not append storage'))
     .finally(() => vm.isLoading = false);
 }
 </script>
 
 <template>
-  <h2>Add nested storage</h2>
+  <h2>Append storage</h2>
 
   <div v-loading="vm.isLoading">
     <StorageForm @submit="submitForm($event)" />
