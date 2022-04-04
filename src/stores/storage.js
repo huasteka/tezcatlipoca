@@ -4,11 +4,15 @@ import {
   createMeasureUnitService,
   createStorageService,
   createOperationService,
-  responseToMapReducer
+  responseToMapReducer,
+  setLogoutInterceptor
 } from '@/services/tepoztecatl';
 import { useAuthStore } from './authentication';
 
-const bearerToken = useAuthStore().bearerToken;
+const authStore = useAuthStore();
+const bearerToken = authStore.bearerToken;
+setLogoutInterceptor(() => authStore.logout());
+
 const storageService = createStorageService(bearerToken);
 const measureUnitService = createMeasureUnitService(bearerToken);
 const itemService = createItemService(bearerToken);

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import config from '@/config';
+import { setUnauthorizedInterceptor } from '@/services/interceptor';
 import setItemServiceAPI from './item';
 import setMeasureUnitServiceAPI from './measureUnit';
 import setOperationServiceAPI from './operation';
@@ -18,10 +19,14 @@ function headers(bearerToken) {
   };
 }
 
+export function setLogoutInterceptor(logoutCallback) {
+  return setUnauthorizedInterceptor(connector, logoutCallback);
+}
+
 export function responseToMapReducer(resourceList) {
   const dataReducer = (resourceMap, { id, attributes }) => ({
     ...resourceMap,
-    [id]: { id, ...attributes }
+    [id]: { id, ...attributes },
   });
   return (resourceList || []).reduce(dataReducer, {});
 }

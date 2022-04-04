@@ -1,5 +1,6 @@
 import axios from 'axios';
 import config from '@/config';
+import { setUnauthorizedInterceptor } from '@/services/interceptor';
 import setAccountServiceAPI from './account';
 import setBudgetGroupAPI from './budgetGroup';
 import setBudgetCategoryServiceAPI from './budgetCategory';
@@ -17,6 +18,10 @@ function headers(bearerToken) {
       'Authorization': `Bearer ${bearerToken}`,
     },
   };
+}
+
+export function setLogoutInterceptor(logoutCallback) {
+  return setUnauthorizedInterceptor(connector, logoutCallback);
 }
 
 export function responseToMapReducer(resourceList) {
