@@ -56,7 +56,7 @@ const submitForm = (form) => {
 
 <template>
   <el-form
-    label-width="200px"
+    label-width="170px"
     ref="createDeliveryAddressFormRef"
     :model="createDeliveryAddressForm"
     :rules="rules"

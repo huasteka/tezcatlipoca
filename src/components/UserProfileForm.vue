@@ -45,7 +45,7 @@ const submitForm = (form) => {
   <div v-loading="status.isLoading">
     <h2>Profile Settings</h2>
 
-    <el-form label-width="200px" ref="userProfileFormRef" :model="userProfileForm" :rules="rules">
+    <el-form label-width="175px" ref="userProfileFormRef" :model="userProfileForm" :rules="rules">
       <el-form-item label="Name" prop="name">
         <el-input v-model="userProfileForm.name"></el-input>
       </el-form-item>

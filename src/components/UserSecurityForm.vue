@@ -47,7 +47,7 @@ const submitForm = (form) => {
   <div v-loading="status.isLoading">
     <h2>Security Settings</h2>
 
-    <el-form label-width="200px" ref="userSecurityFormRef" :model="userSecurityForm" :rules="rules">
+    <el-form label-width="175px" ref="userSecurityFormRef" :model="userSecurityForm" :rules="rules">
       <el-form-item label="Password" prop="password">
         <el-input v-model="userSecurityForm.password" type="password" autocomplete="off"></el-input>
       </el-form-item>

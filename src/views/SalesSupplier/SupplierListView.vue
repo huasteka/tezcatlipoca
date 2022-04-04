@@ -41,12 +41,12 @@ const handleDeleteSupplier = (event) => {
     :data="store.suppliers"
     v-loading="vm.isLoading"
   >
-    <el-table-column width="70" prop="id" label="#" />
+    <el-table-column width="80" prop="id" label="#" />
     <el-table-column prop="name" label="Name" />
     <el-table-column prop="trade_name" label="Trade Name" />
     <el-table-column prop="legal_document_code" label="Legal Document" />
 
-    <el-table-column width="250">
+    <el-table-column width="180">
       <template #header>
         <el-button
           class="align-content-right"

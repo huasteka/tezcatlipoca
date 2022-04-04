@@ -226,7 +226,7 @@ const submitForm = (form) => {
         <el-table-column prop="purchase_price" label="Purchase Price" />
         <el-table-column prop="quantity" label="Quantity" />
 
-        <el-table-column width="250">
+        <el-table-column width="120">
           <template #default="scope">
             <el-button-group class="ml-4 align-content-right">
               <el-button :icon="EditPen" @click.prevent="handleUpdateMerchandise(scope.row)"></el-button>

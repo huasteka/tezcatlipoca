@@ -41,7 +41,7 @@ const submitForm = (form) => {
 
 <template>
   <el-form
-    label-width="150px"
+    label-width="120px"
     ref="createBudgetCategoryFormRef"
     :model="createBudgetCategoryForm"
     :rules="rules"

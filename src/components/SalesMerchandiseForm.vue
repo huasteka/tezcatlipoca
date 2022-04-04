@@ -62,7 +62,7 @@ const submitForm = (form) => {
 <template>
   <el-form
     v-loading="vm.isLoading"
-    label-width="150px"
+    label-width="130px"
     ref="createMerchandiseFormRef"
     :model="createMerchandiseForm"
   >

@@ -33,7 +33,7 @@ const submitForm = (form) => {
 </script>
 
 <template>
-  <el-form label-width="150px" ref="createStorageFormRef" :model="createStorageForm" :rules="rules">
+  <el-form label-width="90px" ref="createStorageFormRef" :model="createStorageForm" :rules="rules">
     <el-form-item label="Name" prop="name">
       <el-input v-model="createStorageForm.name"></el-input>
     </el-form-item>

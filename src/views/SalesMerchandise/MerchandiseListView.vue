@@ -55,7 +55,7 @@ const handleDeleteMerchandise = (event) => {
     <el-table-column prop="retail_price" label="Retail Price" :formatter="formatRetailPrice" />
     <el-table-column prop="purchase_price" label="Purchase Price" :formatter="formatPurchasePrice" />
 
-    <el-table-column width="250">
+    <el-table-column width="200">
       <template #header>
         <el-button
           class="align-content-right"

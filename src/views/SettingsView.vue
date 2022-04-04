@@ -32,9 +32,9 @@ const handleSelect = (key) => {
 </script>
 
 <template>
-  <el-container>
-    <el-aside>
-      <el-menu :default-active="activeIndex.default" mode="vertical" @select="handleSelect">
+  <el-row :gutter="15">
+    <el-col :xs="24" :sm="8" :md="8">
+      <el-menu mode="vertical" :default-active="activeIndex.default" @select="handleSelect">
         <el-menu-item index="dashboard/settings/profile">
           <el-icon>
             <Avatar />
@@ -49,9 +49,9 @@ const handleSelect = (key) => {
           <span>Security</span>
         </el-menu-item>
       </el-menu>
-    </el-aside>
+    </el-col>
 
-    <el-main>
+    <el-col :xs="24" :sm="16" :md="16">
       <div v-if="displayProfileSetup()">
         <UserProfileForm />
       </div>
@@ -59,6 +59,6 @@ const handleSelect = (key) => {
       <div v-if="displaySecuritySetup()">
         <UserSecurityForm />
       </div>
-    </el-main>
-  </el-container>
+    </el-col>
+  </el-row>
 </template>

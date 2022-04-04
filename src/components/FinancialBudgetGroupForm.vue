@@ -33,7 +33,7 @@ const submitForm = (form) => {
 </script>
 
 <template>
-  <el-form label-width="150px" ref="createBudgetGroupFormRef" :model="createBudgetGroupForm" :rules="rules">
+  <el-form label-width="120px" ref="createBudgetGroupFormRef" :model="createBudgetGroupForm" :rules="rules">
     <el-form-item label="Name" prop="name">
       <el-input v-model="createBudgetGroupForm.name"></el-input>
     </el-form-item>

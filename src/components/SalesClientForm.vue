@@ -69,7 +69,7 @@ const submitForm = (form) => {
 </script>
 
 <template>
-  <el-form label-width="180px" ref="createClientFormRef" :model="createClientForm">
+  <el-form label-width="160px" ref="createClientFormRef" :model="createClientForm">
     <el-form-item label="Name" prop="name" :rules="clientRules.name">
       <el-input v-model="createClientForm.name"></el-input>
     </el-form-item>
@@ -171,8 +171,8 @@ const submitForm = (form) => {
   border-width: thin;
   border-style: dotted;
   border-color: black;
-  padding: 50px;
-  margin: 20px;
+  padding: 10px;
+  margin: 10px;
 }
 .contact-form-area-deleted {
   border-color: red;

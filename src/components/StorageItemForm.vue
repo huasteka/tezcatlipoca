@@ -55,7 +55,7 @@ const submitForm = (form) => {
 </script>
 
 <template>
-  <el-form label-width="150px" ref="createItemFormRef" :model="createItemForm" :rules="rules">
+  <el-form label-width="130px" ref="createItemFormRef" :model="createItemForm" :rules="rules">
     <el-form-item label="Name" prop="name">
       <el-input v-model="createItemForm.name"></el-input>
     </el-form-item>
@@ -64,8 +64,8 @@ const submitForm = (form) => {
       <el-input class="small-form-input" v-model="createItemForm.code"></el-input>
     </el-form-item>
 
-    <el-row>
-      <el-col :span="10">
+    <el-row :gutter="15">
+      <el-col :xs="24" :sm="12" :md="10">
         <el-form-item label="Input Unit" prop="input_measure_unit_id">
           <el-select
             placeholder="Select a measurement unit"
@@ -85,7 +85,7 @@ const submitForm = (form) => {
         </el-form-item>
       </el-col>
 
-      <el-col :span="14">
+      <el-col :xs="24" :sm="12" :md="14">
         <el-form-item label="Input Quantity" prop="input_quantity">
           <el-input-number
             class="small-form-input"
@@ -96,8 +96,8 @@ const submitForm = (form) => {
       </el-col>
     </el-row>
 
-    <el-row>
-      <el-col :span="10">
+    <el-row :gutter="15">
+      <el-col :xs="24" :sm="12" :md="10">
         <el-form-item label="Output Unit" prop="output_measure_unit_id">
           <el-select
             placeholder="Select a measurement unit"
@@ -117,7 +117,7 @@ const submitForm = (form) => {
         </el-form-item>
       </el-col>
 
-      <el-col :span="14">
+      <el-col :xs="24" :sm="12" :md="14">
         <el-form-item label="Output Quantity" prop="output_quantity">
           <el-input-number
             class="small-form-input"

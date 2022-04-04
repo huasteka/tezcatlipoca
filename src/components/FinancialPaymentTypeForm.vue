@@ -57,7 +57,7 @@ const submitForm = (form) => {
 
 <template>
   <el-form
-    label-width="185px"
+    label-width="170px"
     ref="createPaymentTypeFormRef"
     :model="createPaymentTypeForm"
     :rules="rules"
