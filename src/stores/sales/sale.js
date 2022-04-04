@@ -3,11 +3,15 @@ import {
   createSaleService,
   extractRelationships,
   formatIncludedData,
-  responseToMapReducer
+  responseToMapReducer,
+  setLogoutInterceptor
 } from '@/services/huitzilopochtli';
 import { useAuthStore } from '@/stores/authentication';
 
-const bearerToken = useAuthStore().bearerToken;
+const authStore = useAuthStore();
+const bearerToken = authStore.bearerToken;
+setLogoutInterceptor(() => authStore.logout());
+
 const saleService = createSaleService(bearerToken);
 
 export const useSalesSaleStore = defineStore({

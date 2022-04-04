@@ -1,5 +1,6 @@
 import axios from 'axios';
 import config from '@/config';
+import { setUnauthorizedInterceptor } from '@/services/interceptor';
 import setClientAPI from './client';
 import setDeliveryAddressAPI from './deliveryAddess';
 import setMerchandiseAPI from './merchandise';
@@ -19,6 +20,10 @@ function headers(bearerToken) {
       'Authorization': `Bearer ${bearerToken}`,
     },
   };
+}
+
+export function setLogoutInterceptor(logoutCallback) {
+  return setUnauthorizedInterceptor(connector, logoutCallback);
 }
 
 export function extractRelationships(relationships) {

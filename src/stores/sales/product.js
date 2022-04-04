@@ -1,8 +1,15 @@
 import { defineStore } from 'pinia';
-import { createProductService, responseToMapReducer } from '@/services/huitzilopochtli';
+import {
+  createProductService,
+  responseToMapReducer,
+  setLogoutInterceptor
+} from '@/services/huitzilopochtli';
 import { useAuthStore } from '@/stores/authentication';
 
-const bearerToken = useAuthStore().bearerToken;
+const authStore = useAuthStore();
+const bearerToken = authStore.bearerToken;
+setLogoutInterceptor(() => authStore.logout());
+
 const productService = createProductService(bearerToken);
 
 export const useSalesProductStore = defineStore({

@@ -6,10 +6,14 @@ import {
   createPaymentTypeService,
   createEntryService,
   responseToMapReducer,
+  setLogoutInterceptor,
 } from '@/services/yacatecuhtli';
 import { useAuthStore } from './authentication';
 
-const bearerToken = useAuthStore().bearerToken;
+const authStore = useAuthStore();
+const bearerToken = authStore.bearerToken;
+setLogoutInterceptor(() => authStore.logout());
+
 const budgetGroupService = createBudgetGroupService(bearerToken);
 const budgetCategoryService = createBudgetCategoryService(bearerToken);
 const accountService = createAccountService(bearerToken);
